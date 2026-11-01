@@ -1,0 +1,947 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Peta Harta Matematik: Koordinat, Nisbah dan Kadaran</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eaf4fb;--gl:#d3e5f3;--paper:#fff;--ink:#14284b;--mut:#51627f;--line:#bcd3e6;--a:#ff9f1c;--btn:#0b7f70;--ok:#17803f;--bad:#c93b3b;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1a2d;--gl:#16273f;--paper:#172641;--ink:#e8f0fb;--mut:#9fb2cf;--line:#2d4566;--ok:#4cc77f;--bad:#ff7b7b;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1a2d;--gl:#16273f;--paper:#172641;--ink:#e8f0fb;--mut:#9fb2cf;--line:#2d4566;--ok:#4cc77f;--bad:#ff7b7b;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;font:500 17px/1.55 Nunito,system-ui,sans-serif;color:var(--ink);background-color:var(--bg);background-image:linear-gradient(var(--gl) 1px,transparent 1px),linear-gradient(90deg,var(--gl) 1px,transparent 1px);background-size:28px 28px}
+.wrap{max-width:1000px;margin:0 auto;padding:20px 16px 210px}
+header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+h1{font:800 clamp(26px,5vw,42px)/1.1 "Baloo 2",system-ui,sans-serif;margin:0}
+.sub{color:var(--mut);margin:4px 0 0}
+.badge{font:800 20px "Baloo 2",sans-serif;background:var(--a);color:#14284b;border:2px solid var(--ink);border-radius:999px;padding:4px 14px;white-space:nowrap}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
+nav button{font:700 16px "Baloo 2",sans-serif;padding:8px 16px;border:2px solid var(--ink);border-radius:999px;background:var(--paper);color:var(--ink);cursor:pointer}
+nav button[aria-selected=true]{background:var(--ink);color:var(--paper)}
+button:focus-visible,input:focus-visible,svg:focus-visible{outline:3px solid var(--a);outline-offset:2px}
+.panel{background:var(--paper);border:2px solid var(--ink);border-radius:18px;padding:20px;box-shadow:6px 6px 0 var(--a)}
+.panel[hidden]{display:none}
+h2{font:800 26px "Baloo 2",sans-serif;margin:0 0 2px}
+.sp{color:var(--mut);font-size:15px;margin:0 0 12px}
+.two{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:22px;align-items:start}
+@media(max-width:760px){.two{grid-template-columns:1fr}}
+svg#g{width:100%;height:auto;max-width:480px;display:block;touch-action:manipulation;cursor:crosshair}
+.gl{stroke:var(--line);stroke-width:1}.ax{stroke:var(--ink);stroke-width:2.5}.gd{stroke:var(--a);stroke-width:2.5;stroke-dasharray:5 4}.pt{fill:#e4572e;stroke:var(--ink);stroke-width:2}.hv{fill:none;stroke:var(--btn);stroke-width:2}
+svg text.t{fill:var(--ink);font:700 13px Nunito,sans-serif}svg text.b{font-size:15px}
+.seg,.seg2{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.seg button,.seg2 button,.ghost{font:700 15px Nunito,sans-serif;padding:6px 12px;border:2px solid var(--ink);border-radius:10px;background:transparent;color:var(--ink);cursor:pointer}
+.seg button[aria-pressed=true],.seg2 button[aria-pressed=true]{background:var(--a);color:#14284b}
+.go{font:700 16px Nunito,sans-serif;padding:8px 16px;border:2px solid var(--ink);border-radius:10px;background:var(--btn);color:#fff;cursor:pointer}
+.info{background:var(--bg);border-left:6px solid var(--a);border-radius:8px;padding:10px 14px;margin:0 0 12px;min-height:3.2em}
+.q{font-weight:700;margin:0 0 10px}
+.f{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.f label{display:flex;flex-direction:column;font-size:15px;color:var(--mut)}
+.f input{width:130px;font:700 18px Nunito,sans-serif;padding:6px 10px;border:2px solid var(--ink);border-radius:8px;background:var(--paper);color:var(--ink)}
+.f select{font:700 16px Nunito,sans-serif;padding:7px 8px;border:2px solid var(--ink);border-radius:8px;background:var(--paper);color:var(--ink)}.f input.x{border-color:var(--bad)}.f input.o{border-color:var(--ok)}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.fb{min-height:2em;font-weight:700;margin:10px 0 0}.fb.ok{color:var(--ok)}.fb.no{color:var(--bad)}
+.kb{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.kb button{font:700 15px Nunito,sans-serif;padding:5px 10px;border:2px solid var(--ink);border-radius:8px;background:var(--paper);color:var(--ink);cursor:pointer}
+.kb button[aria-pressed=true]{background:var(--a);color:#14284b}
+.vis{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:12px;border:2px dashed var(--line);border-radius:12px;min-height:70px}
+.d{display:inline-block;width:26px;height:26px;border-radius:50%;border:2px solid var(--ink)}
+.d.a{background:var(--a)}.d.w{background:#3bb4d6}
+.m{width:11px;height:11px;border-width:1px}
+.dots{display:flex;flex-wrap:wrap;gap:3px;width:150px}
+.card{background:var(--bg);border-radius:12px;padding:12px 16px;margin:0 0 14px}
+ol{margin:6px 0;padding-left:22px}
+.note{color:var(--mut);font-size:14px;margin-top:22px}
+.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:16px 0}
+.mc{display:flex;flex-direction:column;gap:4px;text-align:left;font:500 15px Nunito,system-ui,sans-serif;color:var(--ink);background:var(--paper);border:2px solid var(--ink);border-left:10px solid var(--c);border-radius:14px;padding:14px 16px;cursor:pointer}
+.mc span{font-size:34px;line-height:1}.mc b{font:800 20px "Baloo 2",sans-serif}.mc small{color:var(--mut);font-size:14px}.mc:hover{background:var(--bg)}
+.card ul{margin:6px 0 0;padding-left:20px}.pg{font-style:normal;font-weight:800;margin-top:4px}
+.opts{margin-bottom:8px}.opts button.o{background:var(--ok);color:#fff;border-color:var(--ok)}.opts button.x{border-color:var(--bad);color:var(--bad)}
+button:disabled{opacity:.5;cursor:not-allowed}
+.vlb{display:inline-flex;align-items:center;gap:4px;font-size:14px}.vlb input{width:84px;accent-color:var(--a)}
+.sb.p i{background:#2d6a2d}.sb.c{outline:2px solid var(--a);outline-offset:2px;border-radius:4px}#m{cursor:crosshair}
+#sn{display:none;pointer-events:none}svg.sonar #sn{display:inline}#sn .sw{transform-origin:224px 216px;animation:sweep 4.5s linear infinite}
+@keyframes sweep{to{transform:rotate(360deg)}}
+.shake{animation:shk .45s}.hurt{animation:shk .45s,flash .7s}
+@keyframes shk{0%,100%{transform:translate(0)}20%{transform:translate(-6px,3px)}40%{transform:translate(6px,-3px)}60%{transform:translate(-4px,-2px)}80%{transform:translate(3px,2px)}}
+@keyframes flash{0%{background:rgba(228,57,43,.55)}100%{background:transparent}}
+.hud{border:2px solid var(--ink);border-radius:14px;padding:8px 12px;margin-bottom:10px;background:var(--bg)}
+.turn{font:800 18px "Baloo 2",sans-serif;text-align:center;border-radius:10px;padding:2px 8px;margin-bottom:6px}
+.turn.me{background:var(--ok);color:#fff}.turn.en{background:#c93b3b;color:#fff;animation:pulse .8s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.6}}
+.hr2{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:14px;margin:3px 0}
+.sb{display:inline-flex;gap:2px;margin-right:6px}.sb i{width:14px;height:14px;background:#7fb2ff;border:1.5px solid var(--ink);border-radius:3px}.sb i.h{background:#e4572e}.sb.s i{background:#333}
+.ovl{position:fixed;inset:0;background:rgba(10,20,40,.72);z-index:45;display:flex;align-items:center;justify-content:center;padding:16px}.ovl[hidden]{display:none}
+.ovb{background:var(--paper);color:var(--ink);border:3px solid var(--ink);border-radius:22px;padding:22px;text-align:center;max-width:430px;box-shadow:6px 6px 0 var(--a);animation:pop .4s ease}
+.ovt{font:800 clamp(34px,9vw,56px)/1.05 "Baloo 2",sans-serif}.ovt.w{color:var(--ok)}.ovt.l{color:var(--bad)}
+@keyframes pop{0%{transform:scale(.6);opacity:0}100%{transform:scale(1);opacity:1}}
+#conf i{position:fixed;top:-20px;width:10px;height:14px;animation:fall 2.8s linear forwards;z-index:46;pointer-events:none}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+@media(prefers-reduced-motion:reduce){#sn .sw,.turn.en,.shake,.hurt{animation:none!important}}
+#mas{position:fixed;left:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;align-items:flex-end;gap:8px;pointer-events:none}
+#mas>*{pointer-events:auto}
+.mchar{background:none;border:none;padding:0;cursor:pointer;width:150px;flex:none}
+.mchar svg,.av svg{width:100%;height:auto;display:block}.mchar svg{filter:drop-shadow(0 3px 3px rgba(0,0,0,.3))}.av{width:110px;flex:none}
+.mbub{position:relative;background:var(--paper);color:var(--ink);border:2px solid var(--ink);border-radius:16px;padding:10px 12px;max-width:min(340px,calc(100vw - 190px));font-size:17px;line-height:1.45;margin-bottom:62px;box-shadow:3px 3px 0 var(--a)}
+.mbub::before{content:"";position:absolute;left:-10px;bottom:16px;border:8px solid transparent;border-right-color:var(--ink);border-left:0}
+.mbt{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}.mbt button{padding:2px 10px;font-size:13px}
+@media(max-width:560px){.mchar{width:104px}.mbub{max-width:calc(100vw - 150px);font-size:15px;margin-bottom:44px}.av{width:84px}}
+.mas .eh,.mas .br,.mas .mo,.mas .tear{display:none}
+.mas .eyes{animation:blink 5s infinite;transform-origin:60px 58px}
+.mas .bob{animation:bob 2.6s ease-in-out infinite}
+.mas .wl,.mas .wr{transition:transform .25s}
+.mas[data-s=happy] .eo,.mas[data-s=cheer] .eo{display:none}
+.mas[data-s=happy] .eh,.mas[data-s=cheer] .eh,.mas[data-s=happy] .mo,.mas[data-s=cheer] .mo{display:inline}
+.mas[data-s=cheer] .wl{transform:rotate(100deg)}.mas[data-s=cheer] .wr{transform:rotate(-100deg)}
+.mas[data-s=cheer] .bob{animation:hop .5s ease-in-out infinite}
+.mas[data-s=sad] .br,.mas[data-s=sad] .tear{display:inline}
+.mas[data-s=sad] .wl{transform:rotate(-12deg)}.mas[data-s=sad] .wr{transform:rotate(12deg)}
+.mas[data-s=think] .pp{transform:translate(-3px,-3px)}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes hop{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@media(prefers-reduced-motion:reduce){.mas .eyes,.mas .bob{animation:none!important}}
+.les{border:2px solid var(--ink);border-radius:16px;margin:12px 0 16px;overflow:hidden}
+.lh{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:8px 12px;background:var(--a);color:#14284b;font-weight:800}
+.lh .ghost{background:var(--paper);color:var(--ink)}
+.lb{padding:14px}.cap{display:flex;gap:12px;align-items:flex-start}.av{font-size:44px;line-height:1}
+.bub{background:var(--bg);border:2px solid var(--ink);border-radius:14px;padding:10px 14px;flex:1}
+.lv{margin:12px 0;text-align:center}.lv table{margin:0 auto;border-collapse:collapse}.lv td,.lv th{border:2px solid var(--ink);padding:4px 14px}
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;text-align:left}
+#toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translate(-50%,24px);background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:999px;font-weight:800;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:50;max-width:92vw;text-align:center}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+.dl{position:absolute;inset:0;pointer-events:none}
+.board{position:relative;aspect-ratio:16/9;border-radius:22px;border:4px solid #d98a34;overflow:hidden;cursor:copy;background:radial-gradient(circle at 18% 30%,rgba(255,255,255,.28),transparent 22%),radial-gradient(circle at 78% 68%,rgba(255,255,255,.22),transparent 26%),radial-gradient(ellipse at 50% 45%,#5cc0f2,#3aa3e0 70%,#2d8ccd);box-shadow:inset 0 0 40px rgba(20,70,140,.35)}
+.board.rm{cursor:not-allowed}
+.sk{position:absolute;transform:translate(-50%,-50%);font-size:calc(var(--bw,600px)*var(--k,.07));line-height:1;cursor:grab;touch-action:none;user-select:none;pointer-events:auto;filter:drop-shadow(0 2px 2px rgba(0,0,0,.3))}
+.board.rm .sk{cursor:pointer}.dl .sk{pointer-events:none}
+#tray button[aria-pressed=true]{background:var(--a);color:#14284b}
+body[data-th="th1"] .board{background:radial-gradient(ellipse at 50% 45%,#5be3d4,#22b9c4 70%,#1596ac)}
+body[data-th="th2"] .board{background:radial-gradient(ellipse at 50% 45%,#f9b27a,#d9648d 70%,#7b3f8f)}
+body[data-th="th3"] .board{background:radial-gradient(ellipse at 50% 45%,#34508f,#1d2f66 70%,#0f1b3d)}
+.tg{margin-top:6px;display:flex;gap:6px;justify-content:flex-end}.tg button{padding:3px 10px;font-size:14px}
+.an{stroke:#e4572e;stroke-width:4;stroke-linecap:round;stroke-dasharray:var(--l);stroke-dashoffset:var(--l);animation:dr .5s ease forwards}.an2{animation-delay:.5s}
+@keyframes dr{to{stroke-dashoffset:0}}
+@media(prefers-reduced-motion:reduce){.an{animation:none;stroke-dashoffset:0}}
+.dw{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:8px}.br{display:flex;align-items:center;gap:8px;margin:4px 0}.br span{width:112px;font-size:15px}
+.tr{flex:1;height:14px;background:var(--line);border-radius:8px;overflow:hidden}.tr i{display:block;height:100%;background:var(--ok)}.br b{width:48px;font-size:14px;text-align:right}
+.who{margin-top:6px;font-weight:700;font-size:15px;text-align:right}
+.shop{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin:8px 0 14px}
+.it{border:2px solid var(--ink);border-radius:14px;padding:10px;text-align:center;background:var(--bg)}
+.it .e{font-size:38px;line-height:1.2}.it b{display:block;margin-bottom:4px}.it small{color:var(--mut)}
+.shop h3,.sh3{font:800 20px "Baloo 2",sans-serif;margin:12px 0 0}
+.ref{padding-left:2em;text-indent:-2em;margin:0 0 12px}
+body[data-th="th1"] .sea{background:radial-gradient(ellipse at 50% 45%,#5be3d4,#22b9c4 70%,#1596ac)}body[data-th="th1"] .sh1{fill:#9cf0e6}body[data-th="th1"] .sh2{fill:#6fe0d3}
+body[data-th="th2"] .sea{background:radial-gradient(ellipse at 50% 45%,#f9b27a,#d9648d 70%,#7b3f8f)}body[data-th="th2"] .sh1{fill:#f6c28f}body[data-th="th2"] .sh2{fill:#e98aa0}
+body[data-th="th3"] .sea{background:radial-gradient(ellipse at 50% 45%,#34508f,#1d2f66 70%,#0f1b3d)}body[data-th="th3"] .sh1{fill:#3f5ba8}body[data-th="th3"] .sh2{fill:#2d468f}.trail{--ink:#3a2412;--paper:#f6e6bd;--mut:#7a5632;--bg:#ead19a;--ok:#2d6a2d;--a:#e0a030;color:var(--ink);position:relative;margin:20px 0 10px;padding:34px 22px 12px}
+.mapw{overflow-x:auto;margin:14px 0 6px;padding-bottom:6px}
+.hint{display:none;margin:0 0 4px}
+@media(max-width:920px){.hint{display:block}}
+.map{--ink:#3a2412;--paper:#f6e6bd;--mut:#7a5632;--bg:#ead19a;--ok:#2d6a2d;--a:#e0a030;color:var(--ink);position:relative;min-width:880px;aspect-ratio:1000/620}
+.ms{position:absolute;inset:0;width:100%;height:100%}
+.stop{display:contents}
+.mk{position:absolute;transform:translate(-50%,-50%);width:42px;height:42px;border-radius:50%;background:var(--paper);border:3px solid var(--ink);display:flex;align-items:center;justify-content:center;font:800 19px "Baloo 2",sans-serif;font-style:normal}
+.stop.dn .mk{background:var(--ok);border-color:var(--ok);color:#fff}
+.stop.cur .mk{background:var(--a)}
+.stop.end .mk,.stop.end.dn .mk{background:none;border:none;color:#c0392b;font-size:54px;width:58px;height:58px;text-shadow:0 2px 0 rgba(90,40,10,.35)}
+.map .mc{position:absolute;width:20%;transform:translateX(-50%);padding:8px 10px;border-left-width:8px}
+.map .mc.up{transform:translate(-50%,-100%)}
+.map .mc span{font-size:24px}.map .mc b{font-size:17px;line-height:1.15}.map .mc small{font-size:13px;line-height:1.3}
+.stop.end .mc{cursor:default}.stop.end .mc:hover{background:var(--paper)}
+.pill{position:absolute;left:6.2%;top:48.4%;transform:translate(-50%,-50%);background:var(--paper);border:2px dashed var(--ink);border-radius:999px;padding:3px 12px;font-weight:700;font-size:15px}
+.cx{position:absolute;left:2.5%;top:70%;width:14%;height:auto;touch-action:none;cursor:grab;user-select:none}
+.cx:active{cursor:grabbing}
+@media(prefers-reduced-motion:reduce){#nd{transition:none!important}}
+.parch{position:absolute;inset:4px;border-radius:30px;background:radial-gradient(ellipse at 50% 45%,#fad790,#f0a94f 68%,#d98a34);box-shadow:inset 0 0 36px 8px rgba(150,80,10,.5);filter:url(#rough)}
+.sea{position:absolute;inset:24px;border-radius:26px;background:radial-gradient(ellipse at 50% 45%,#5cc0f2,#3aa3e0 70%,#2d8ccd);box-shadow:inset 0 0 0 4px rgba(255,255,255,.35),inset 0 0 40px rgba(20,70,140,.35);filter:url(#rough2)}
+.rt{fill:none;stroke:#d62828;stroke-width:4.5;stroke-linecap:round;stroke-dasharray:10 9}.rt.dn{stroke-dasharray:none;stroke-width:5.5}
+.sh2{fill:#63c1ee}.sh1{fill:#8fd8f4}.bc{fill:#f6e7a8}
+.isl{fill:#86c95a;stroke:#3d7f2f;stroke-width:2.5}.isl.dn{fill:#4fb04a}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<filter id="rough" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".02" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="24"/></filter>
+<filter id="rough2" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency=".03" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="10"/></filter>
+<symbol id="plm" viewBox="0 0 60 80"><path d="M30 78Q26 52 34 30" stroke="#8b5a2b" stroke-width="5" fill="none" stroke-linecap="round"/><g fill="#43a047" stroke="#2b6b2f" stroke-width="1.8" stroke-linejoin="round"><path d="M34 30Q16 14 3 28Q18 22 34 30Z"/><path d="M34 30Q22 8 8 8Q22 14 34 30Z"/><path d="M34 30Q40 6 55 10Q42 14 34 30Z"/><path d="M34 30Q50 18 58 34Q46 26 34 30Z"/><path d="M34 30Q30 12 34 2Q40 16 34 30Z"/></g><circle cx="33" cy="33" r="3.5" fill="#6b3f1a"/></symbol>
+<symbol id="trs" viewBox="0 0 50 60"><rect x="22" y="36" width="7" height="22" rx="2" fill="#8b5a2b"/><circle cx="25" cy="24" r="18" fill="#4caf50" stroke="#2b6b2f" stroke-width="2"/><circle cx="19" cy="18" r="6" fill="#7cc66a"/></symbol>
+<symbol id="mtn" viewBox="0 0 100 55"><g stroke="#2f6b2a" stroke-width="2" stroke-linejoin="round"><path d="M2 52L30 8 58 52Z" fill="#6fb350"/><path d="M30 8L58 52 36 52Z" fill="#4d9a3e"/><path d="M48 52L74 18 98 52Z" fill="#78bb58"/><path d="M74 18L98 52 80 52Z" fill="#55a043"/></g></symbol>
+<symbol id="vol" viewBox="0 0 70 60"><path d="M5 56L24 18H46L65 56Z" fill="#8a6b52" stroke="#4a3524" stroke-width="2.5" stroke-linejoin="round"/><path d="M24 18Q35 10 46 18Z" fill="#ff7a1a" stroke="#b34700" stroke-width="2"/><path d="M30 18L28 32 34 24Z" fill="#ff7a1a"/><g fill="#d9dde3"><circle cx="30" cy="8" r="6"/><circle cx="40" cy="5" r="5"/><circle cx="48" cy="9" r="4"/></g></symbol>
+<symbol id="shp" viewBox="0 0 100 100"><g stroke="#4a2f17" stroke-width="2.5" stroke-linejoin="round"><path d="M10 62Q50 86 90 62L80 80Q50 92 20 80Z" fill="#8b5a2b"/><path d="M50 64V10" fill="none" stroke-width="3.5"/><path d="M50 14Q78 24 76 48Q60 54 50 46Z" fill="#fff4d6"/><path d="M50 16Q24 24 26 46Q40 52 50 44Z" fill="#fff4d6"/><path d="M50 10L66 5 50 1Z" fill="#d62828" stroke-width="1.5"/></g><path d="M4 94q7-7 14 0t14 0t14 0t14 0t14 0t14 0" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/></symbol>
+<symbol id="wv" viewBox="0 0 60 14"><path d="M2 8q7-8 14 0t14 0t14 0t14 0" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="3" stroke-linecap="round"/></symbol>
+<symbol id="skl" viewBox="0 0 50 50"><path d="M10 28Q6 6 25 5Q44 6 40 28L36 32V42H14V32Z" fill="#fffdf3" stroke="#6b5a45" stroke-width="2.5"/><circle cx="18" cy="24" r="4.5" fill="#3a2f26"/><circle cx="32" cy="24" r="4.5" fill="#3a2f26"/><path d="M25 29L22 35H28Z" fill="#3a2f26"/><path d="M20 42V36M25 42V38M30 42V36" stroke="#6b5a45" stroke-width="2"/></symbol>
+<symbol id="chs" viewBox="0 0 80 66"><g stroke="#4a2f17" stroke-width="2.5" stroke-linejoin="round"><path d="M8 30Q8 6 40 6Q72 6 72 30Z" fill="#a8692c"/><rect x="8" y="30" width="64" height="28" fill="#c98440"/><path d="M26 6V58M54 6V58" fill="none"/></g><rect x="35" y="26" width="10" height="12" rx="2" fill="#f2c230" stroke="#4a2f17" stroke-width="2"/><g fill="#f6c931" stroke="#b78a00"><circle cx="14" cy="62" r="3"/><circle cx="26" cy="63" r="3"/><circle cx="68" cy="62" r="3"/><circle cx="38" cy="5" r="3"/><circle cx="48" cy="6" r="3"/></g></symbol>
+<symbol id="whl" viewBox="0 0 100 70"><path d="M10 50Q8 20 44 18Q80 16 88 40Q78 38 70 46Q58 64 34 62Q14 62 10 50Z" fill="#5b9ee8" stroke="#2b5f9e" stroke-width="2.5" stroke-linejoin="round"/><path d="M14 52Q40 64 70 48Q56 63 34 62Q18 60 14 52Z" fill="#e8f4ff"/><path d="M86 38Q98 30 99 18Q89 24 80 34ZM88 44Q100 46 100 58Q90 56 82 46Z" fill="#5b9ee8" stroke="#2b5f9e" stroke-width="2"/><circle cx="26" cy="40" r="2.8" fill="#1b2b4a"/><path d="M34 18Q32 8 26 3M34 18Q38 8 44 3" fill="none" stroke="#d6f0ff" stroke-width="3.5" stroke-linecap="round"/></symbol>
+</defs></svg>
+
+<header>
+ <div><h1>Peta Harta Matematik</h1><p class="sub">Matematik Tahun 4 · Topik 7: Koordinat, Nisbah dan Kadaran</p></div>
+ <div style="text-align:right"><div class="badge" aria-label="Bintang terkumpul">⭐ <span id="st">0</span></div><div class="who" id="who"></div><div class="who" id="tmr" style="font-weight:600;font-size:13px;color:var(--mut)"></div><div class="tg"><button class="ghost" id="bm" aria-pressed="true">🎵 Muzik</button><button class="ghost" id="bs" aria-pressed="true">🔊 Bunyi</button><button class="ghost" id="bg" aria-pressed="true">🕊️ Pemandu</button><label class="vlb" title="Kekuatan bunyi">🔉 <input type="range" id="vl" min="0" max="100" value="100" aria-label="Kekuatan bunyi"></label></div></div>
+</header>
+<nav role="tablist">
+ <button role="tab" data-t="utama" aria-selected="true">Utama</button>
+ <button role="tab" data-t="koordinat" aria-selected="false">7.1 Koordinat</button>
+ <button role="tab" data-t="nisbah" aria-selected="false">7.2 Nisbah</button>
+ <button role="tab" data-t="kadaran" aria-selected="false">7.3 Kadaran</button>
+ <button role="tab" data-t="masalah" aria-selected="false">7.4 Penyelesaian Masalah</button>
+ <button role="tab" data-t="latihan" aria-selected="false">Latihan</button>
+ <button role="tab" data-t="kedai" aria-selected="false">Kedai</button>
+ <button role="tab" data-t="rujukan" aria-selected="false">Rujukan</button>
+</nav>
+
+<section class="panel" id="utama">
+ <h2>Selamat datang, murid Tahun 4!</h2>
+ <p class="sp">Topik 7: Koordinat, Nisbah dan Kadaran</p>
+ <p>Kapten Aina menemui kisah harta karun di Pulau Misteri, tetapi lanun menjaga lautan. Selesaikan empat misi mengikut urutan: tenggelamkan kapal lanun, baca skala peta, kira bekalan pelayaran dan temui harta karun. Setiap misi menggunakan maklumat daripada misi sebelumnya. Anda mendapat bintang ⭐ untuk jawapan betul pada percubaan pertama.</p>
+ <p class="q">Ikut jejak merah dari pulau ke pulau menuju ✖. Seret jarum kompas untuk meneroka arah.</p>
+ <p class="sp hint">Gelongsor peta ke kanan untuk melihat semua pulau →</p>
+ <div class="mapw"><div class="map">
+   <div class="parch"></div><div class="sea"></div>
+   <svg class="ms" viewBox="0 0 1000 620" aria-hidden="true">
+   <path class="sh2" d="M319 207Q329 225 331 248Q332 272 296 278Q260 284 226 291Q192 298 152 289Q113 279 116 252Q119 225 116 198Q113 171 152 160Q190 148 232 144Q273 141 291 165Q310 189 319 207Z"/>
+   <path class="sh2" d="M514 365Q531 385 522 409Q514 432 480 444Q446 455 406 463Q366 470 348 446Q331 421 298 403Q265 385 284 361Q304 336 336 320Q368 303 410 303Q452 303 474 324Q497 345 514 365Z"/>
+   <path class="sh2" d="M700 205Q713 225 708 249Q703 272 667 278Q630 284 593 298Q555 312 522 294Q489 276 471 250Q454 225 482 205Q511 184 539 172Q567 161 599 163Q631 165 659 175Q686 185 700 205Z"/>
+   <path class="sh2" d="M893 360Q907 385 880 404Q853 423 833 447Q814 470 771 468Q729 465 705 445Q681 426 666 405Q652 385 671 367Q690 348 714 335Q738 322 774 315Q810 308 845 321Q879 335 893 360Z"/>
+   <path class="sh2" d="M996 201Q997 225 995 249Q993 272 957 279Q922 287 884 298Q846 310 825 287Q804 265 787 245Q770 225 776 200Q781 175 814 158Q846 140 888 145Q929 150 962 163Q996 177 996 201Z"/>
+   <path class="sh2" d="M662 486Q671 500 657 512Q643 524 629 536Q614 547 589 548Q564 550 551 537Q537 524 525 512Q512 500 525 488Q537 476 554 470Q571 464 591 462Q610 460 631 466Q653 471 662 486Z"/>
+   <path class="sh2" d="M790 68Q792 78 792 89Q792 100 777 105Q762 110 743 114Q725 117 711 109Q697 100 693 89Q688 78 690 66Q692 54 710 50Q729 47 747 43Q765 40 777 49Q789 58 790 68Z"/>
+   <path class="sh2" d="M126 58Q131 70 126 82Q121 93 104 99Q87 104 68 108Q48 113 32 104Q16 95 10 82Q3 70 12 59Q22 48 35 38Q49 29 70 29Q91 30 106 38Q121 47 126 58Z"/>
+   <path class="sh1" d="M317 209Q334 225 325 245Q316 264 291 279Q266 295 235 286Q203 277 184 266Q164 255 142 240Q119 225 138 208Q156 191 179 180Q201 169 233 164Q264 159 282 176Q299 193 317 209Z"/>
+   <path class="sh1" d="M493 370Q509 385 501 404Q492 423 468 437Q444 452 410 453Q375 453 347 440Q319 427 318 406Q317 385 317 364Q316 342 349 335Q381 328 409 329Q438 331 457 343Q476 355 493 370Z"/>
+   <path class="sh1" d="M688 206Q693 225 682 241Q671 257 649 267Q626 276 595 285Q565 294 541 278Q518 262 506 244Q495 225 507 206Q519 188 545 178Q571 169 602 165Q633 161 657 174Q682 188 688 206Z"/>
+   <path class="sh1" d="M866 364Q870 385 854 400Q838 416 820 432Q803 449 772 444Q742 439 709 433Q677 428 680 406Q684 385 683 365Q682 345 713 339Q744 334 775 325Q806 315 834 329Q861 343 866 364Z"/>
+   <path class="sh1" d="M978 203Q972 225 978 246Q984 268 950 272Q916 276 886 283Q857 289 828 278Q800 266 791 246Q782 225 800 208Q817 192 839 181Q862 170 892 165Q923 161 954 171Q984 182 978 203Z"/>
+   <path class="sh1" d="M642 489Q645 500 640 510Q635 520 619 524Q604 528 587 533Q571 538 556 530Q541 522 535 511Q530 500 537 490Q545 479 558 471Q571 464 591 462Q610 461 625 469Q639 477 642 489Z"/>
+   <path class="sh1" d="M780 70Q783 78 780 85Q777 93 768 100Q760 107 746 104Q733 101 717 100Q702 98 698 88Q694 78 699 69Q705 60 718 55Q731 51 746 49Q761 47 769 55Q778 63 780 70Z"/>
+   <path class="sh1" d="M113 61Q117 70 114 79Q111 89 98 94Q85 100 70 100Q54 100 40 95Q26 90 19 80Q12 70 20 60Q28 51 40 44Q53 37 69 38Q86 40 97 46Q109 52 113 61Z"/>
+   <path class="bc" d="M294 211Q298 225 301 242Q303 259 277 261Q250 264 227 269Q204 275 191 262Q178 249 170 237Q161 225 159 208Q156 191 183 188Q209 185 232 181Q255 177 273 187Q291 197 294 211Z"/><path class="isl" id="i1" d="M288 213Q293 225 285 236Q277 247 265 257Q252 268 232 263Q213 259 194 255Q175 250 170 238Q166 225 176 215Q185 204 197 194Q209 184 228 188Q247 192 265 196Q283 201 288 213Z"/>
+   <path class="bc" d="M492 368Q501 385 480 396Q460 408 448 421Q436 435 413 430Q390 425 363 422Q336 419 342 402Q348 385 344 369Q339 352 362 344Q385 336 411 334Q437 333 461 342Q484 351 492 368Z"/><path class="isl" id="i2" d="M468 372Q467 385 468 399Q469 412 451 420Q432 428 409 430Q385 433 373 420Q360 408 355 396Q349 385 350 371Q350 358 369 350Q388 342 409 345Q429 348 449 353Q469 358 468 372Z"/>
+   <path class="bc" d="M673 212Q690 225 672 237Q653 249 636 256Q619 262 595 271Q572 280 559 265Q546 250 541 237Q535 225 535 210Q534 195 556 188Q578 182 603 177Q627 172 641 186Q655 200 673 212Z"/><path class="isl" id="i3" d="M654 214Q659 225 659 238Q659 252 640 260Q622 268 601 266Q579 265 565 256Q552 247 538 236Q524 225 532 211Q539 197 559 191Q579 184 600 184Q621 184 635 193Q649 203 654 214Z"/>
+   <path class="bc" d="M839 371Q848 385 838 398Q828 412 812 424Q797 437 773 432Q748 427 728 420Q708 413 703 399Q698 385 704 371Q710 358 726 344Q742 330 766 338Q790 346 810 352Q830 357 839 371Z"/><path class="isl" id="i4" d="M830 371Q827 385 822 396Q817 406 804 417Q792 427 772 424Q752 420 738 413Q723 406 713 396Q703 385 710 373Q717 361 734 355Q752 349 771 348Q790 346 811 351Q832 357 830 371Z"/>
+   <path class="bc" d="M959 210Q961 225 962 242Q964 259 941 269Q918 279 890 279Q862 278 842 268Q821 257 812 241Q802 225 821 214Q841 202 853 190Q865 177 888 180Q911 184 934 189Q957 194 959 210Z"/><path class="isl" id="i5" d="M956 210Q959 225 955 239Q950 253 932 261Q913 270 890 271Q866 271 853 260Q840 248 825 236Q810 225 822 212Q834 199 850 190Q867 180 890 180Q913 180 934 188Q954 196 956 210Z"/>
+   <path class="bc" d="M631 493Q642 500 634 508Q627 517 615 521Q603 526 590 526Q576 527 563 522Q551 518 544 509Q537 500 546 492Q555 484 567 480Q578 476 590 476Q603 475 611 481Q619 486 631 493Z"/>
+   <path class="isl" style="fill:#e9e3c8;stroke:#8a7e5a" d="M625 491Q623 500 625 509Q627 517 614 519Q600 520 589 523Q577 526 565 521Q554 516 551 508Q547 500 554 493Q561 487 570 482Q579 478 591 476Q603 475 615 479Q627 483 625 491Z"/>
+   <path class="bc" d="M777 70Q774 78 774 85Q775 92 766 97Q758 103 746 101Q735 98 725 95Q716 91 714 85Q712 78 713 71Q714 64 724 59Q733 55 745 56Q756 56 768 59Q779 62 777 70Z"/>
+   <path class="isl" style="" d="M771 73Q774 78 773 84Q771 90 762 92Q753 93 743 97Q733 100 725 96Q717 91 712 85Q708 78 715 73Q722 68 729 65Q737 62 745 62Q753 63 760 65Q767 68 771 73Z"/>
+   <path class="bc" d="M101 64Q105 70 103 77Q101 84 92 89Q82 94 70 93Q58 93 48 89Q38 85 35 77Q32 70 35 63Q39 56 49 53Q60 50 70 50Q80 51 89 54Q98 57 101 64Z"/>
+   <path class="isl" style="" d="M100 63Q98 70 98 77Q98 83 90 89Q82 94 71 92Q60 89 51 86Q42 83 40 76Q38 70 39 63Q40 56 49 52Q59 48 70 49Q81 49 92 52Q103 55 100 63Z"/>
+   <use href="#skl" x="572" y="480" width="36" height="36"/>
+   <use href="#plm" x="722" y="42" width="24" height="33"/><use href="#plm" x="748" y="46" width="24" height="33"/><use href="#plm" x="58" y="36" width="26" height="35"/><use href="#trs" x="76" y="62" width="20" height="24"/>
+   <use href="#plm" x="252" y="190" width="30" height="40"/><use href="#plm" x="192" y="200" width="24" height="32"/>
+   <use href="#mtn" x="350" y="345" width="52" height="29"/><use href="#trs" x="448" y="350" width="26" height="31"/>
+   <use href="#trs" x="548" y="198" width="26" height="31"/><use href="#trs" x="640" y="194" width="26" height="31"/>
+   <use href="#vol" x="790" y="346" width="48" height="41"/><use href="#trs" x="712" y="358" width="24" height="29"/>
+   <use href="#plm" x="845" y="190" width="30" height="40"/><use href="#chs" x="918" y="238" width="46" height="38"/>
+   <path class="rt" id="g1" d="M107 300C168 300 169 225 230 225"/>
+   <path class="rt" id="g2" d="M230 225C320 225 320 385 410 385"/>
+   <path class="rt" id="g3" d="M410 385C505 385 505 225 600 225"/>
+   <path class="rt" id="g4" d="M600 225C685 225 685 385 770 385"/>
+   <path class="rt" id="g5" d="M770 385C830 385 830 225 890 225"/>
+   <use href="#shp" x="385" y="42" width="95" height="95"/><use href="#whl" x="895" y="525" width="95" height="66"/>
+   <use href="#wv" x="185" y="455" width="60" height="14"/>
+   <use href="#wv" x="600" y="420" width="60" height="14"/>
+   <use href="#wv" x="520" y="560" width="60" height="14"/>
+   <use href="#wv" x="930" y="330" width="60" height="14"/>
+   <use href="#wv" x="940" y="450" width="60" height="14"/>
+   <use href="#wv" x="60" y="400" width="60" height="14"/>
+   <use href="#wv" x="180" y="330" width="60" height="14"/>
+   <use href="#wv" x="520" y="100" width="60" height="14"/>
+   <use href="#wv" x="300" y="570" width="60" height="14"/>
+   </svg>
+   <div class="dl" id="dmap"></div><span class="pill">⚓ Mula</span>
+   <div class="stop" id="s1"><i class="mk" style="left:23%;top:36.3%">1</i><button class="mc up" data-go="koordinat" style="left:23%;top:26.9%;--c:#e4572e"><span>🧭</span><b>7.1 Koordinat</b><small>Misi 1: Lawan komputer dalam permainan Battleship</small><em class="pg" id="p1"></em></button></div>
+   <div class="stop" id="s2"><i class="mk" style="left:41%;top:62.1%">2</i><button class="mc" data-go="nisbah" style="left:41%;top:71.5%;--c:#3bb4d6"><span>🗺️</span><b>7.2 Nisbah</b><small>Misi 2: Bandingkan peta dengan dunia sebenar</small><em class="pg" id="p2"></em></button></div>
+   <div class="stop" id="s3"><i class="mk" style="left:60%;top:36.3%">3</i><button class="mc up" data-go="kadaran" style="left:60%;top:26.9%;--c:#ff9f1c"><span>⚖️</span><b>7.3 Kadaran</b><small>Misi 3: Kira bekalan dan laju pelayaran</small><em class="pg" id="p3"></em></button></div>
+   <div class="stop" id="s4"><i class="mk" style="left:77%;top:62.1%">4</i><button class="mc" data-go="masalah" style="left:77%;top:71.5%;--c:#0b7f70"><span>🧩</span><b>7.4 Penyelesaian masalah</b><small>Misi akhir: Cari harta karun</small><em class="pg" id="p4"></em></button></div>
+   <div class="stop end" id="s5"><i class="mk" style="left:89%;top:36.3%">✖</i><div class="mc up" style="left:89%;top:26.9%;--c:#e4572e"><span>📦</span><b>Harta karun</b><small id="chest"></small></div></div>
+   <svg class="cx" id="cx" viewBox="0 0 140 140" tabindex="0" role="slider" aria-label="Kompas. Seret jarum atau tekan anak panah kiri dan kanan" aria-valuemin="0" aria-valuemax="359" aria-valuenow="0">
+    <circle cx="70" cy="70" r="63" fill="#fff1c9" stroke="#9a5a22" stroke-width="4"/><circle cx="70" cy="70" r="53" fill="none" stroke="#c98440" stroke-width="2" stroke-dasharray="3 4"/>
+    <path d="M70 28L76 64 112 70 76 76 70 112 64 76 28 70 64 64Z" fill="#e9b96e" stroke="#8a4b1e" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M100 40L77 63M100 100L77 77M40 100L63 77M40 40L63 63" stroke="#d9482b" stroke-width="5" stroke-linecap="round"/>
+    <g font-family="Baloo 2,sans-serif" font-size="16" font-weight="800" fill="#6a2f12" text-anchor="middle"><text x="70" y="21">U</text><text x="70" y="131">S</text><text x="13" y="76">B</text><text x="127" y="76">T</text></g>
+    <g id="nd" style="transform-origin:70px 70px;transition:transform .6s"><path d="M70 26L77 70 63 70Z" fill="#d62828" stroke="#3a2412" stroke-width="1.5"/><path d="M70 114L77 70 63 70Z" fill="#3a2412"/></g>
+    <circle cx="70" cy="70" r="5" fill="#fff1c9" stroke="#3a2412" stroke-width="2"/></svg>
+ </div></div>
+ <p class="info" id="cdir"></p>
+ <button class="ghost" id="cgo">Tunjuk misi seterusnya</button>
+ <div class="row" style="margin-top:12px"><button class="go" data-go="latihan">Latihan tambahan</button><button class="go" data-go="kedai">Kedai</button><button class="ghost" data-go="rujukan">Rujukan</button></div>
+ <div class="card" id="dash" style="margin-top:14px"></div><div class="card"><b>Anda akan belajar untuk:</b><ul><li>menyelesaikan masalah berkaitan koordinat, nisbah dan kadaran;</li><li>menerangkan situasi harian menggunakan matematik;</li><li>menghargai keindahan matematik.</li></ul></div>
+</section>
+
+<section class="panel" id="koordinat" hidden>
+ <h2>7.1 Koordinat: Perang kapal lanun</h2>
+ <p class="sp">7.1.1 Mengenal paksi-x, paksi-y dan asalan (O). 7.1.2 Menentukan koordinat suatu titik dan sebaliknya.</p>
+ <p><b>Misi 1:</b> Lawan komputer dalam permainan Battleship. Pilih tahap kesukaran, letak kapal anda (ketik koordinat atau ketik pada Laut anda), kemudian bergilir menembak dengan menaip koordinat (x, y) kapal komputer. Tenggelamkan semua kapal komputer dahulu untuk menang dan mendapat peta harta. Terokai grid dahulu, kemudian pilih Perang kapal.</p>
+ <div class="les" id="L1"></div>
+ <div class="two">
+  <svg id="g" viewBox="0 0 440 440" role="img" aria-label="Grid koordinat dari 0 hingga 10"></svg>
+  <div>
+   <div class="seg">
+    <button data-m="explore" aria-pressed="true">Terokai</button>
+    <button data-m="find" aria-pressed="false">Perang kapal</button>
+    <button data-m="read" aria-pressed="false">Latihan koordinat</button>
+   </div>
+   <p class="info" id="info" aria-live="polite"></p>
+   <div id="bt" hidden>
+    <div id="setup">
+     <p class="q" style="margin:0 0 6px">Tahap kesukaran</p>
+     <div class="seg2" id="lv" style="margin-bottom:4px"><button data-l="0" aria-pressed="true">Mudah</button><button data-l="1" aria-pressed="false">Sederhana</button><button data-l="2" aria-pressed="false">Sukar</button></div>
+     <p class="sp" id="lvd" style="margin:0 0 8px">Komputer menembak secara rawak.</p>
+     <p class="q" style="margin:6px 0 4px">Saiz armada</p>
+     <div class="seg2" id="fs" style="margin-bottom:4px"><button data-f="0" aria-pressed="true">Kecil (3 kapal)</button><button data-f="1" aria-pressed="false">Sederhana (4)</button><button data-f="2" aria-pressed="false">Besar (5)</button></div>
+     <p class="q" id="pl" style="margin:10px 0 6px"></p>
+     <div class="f"><label>x (ke kanan)<input id="sx" inputmode="numeric" autocomplete="off"></label><label>y (ke atas)<input id="sy" inputmode="numeric" autocomplete="off"></label><label>Arah kapal<select id="sd"><option value="h">Ke kanan</option><option value="l">Ke kiri</option><option value="v">Ke atas</option><option value="b">Ke bawah</option></select></label></div>
+     <p class="sp" id="pmsg" style="min-height:1.3em;margin:4px 0 6px"></p>
+     <div class="row"><button class="go" id="pbtn">Letak kapal</button><button class="ghost" id="prnd">Susun rawak</button><button class="ghost" id="pund" hidden>Undur satu kapal</button><button class="ghost" id="pclr" hidden>Ulang susunan</button></div>
+     <button class="go" id="start" hidden>Mula perang!</button>
+    </div>
+    <div id="play" hidden><div class="hud" id="hud" hidden></div><div class="f"><label>x (ke kanan)<input id="bx" inputmode="numeric" autocomplete="off"></label><label>y (ke atas)<input id="by" inputmode="numeric" autocomplete="off"></label></div><button class="go" id="fire">Tembak!</button> <button class="go" id="nxt" hidden>Teruskan ke Misi 2</button>
+     <div class="f" style="margin:10px 0 0"><label>Radar<select id="rax"><option value="y">Baris (y)</option><option value="x">Lajur (x)</option></select></label><label>Nombor<input id="rv" inputmode="numeric" autocomplete="off"></label><button class="ghost" id="radar" style="align-self:flex-end">📡 Imbas</button></div></div>
+    <p class="q" style="margin:12px 0 4px">Laut anda</p><svg id="m" viewBox="0 0 220 220" style="width:100%;max-width:260px" role="img" aria-label="Kedudukan kapal anda dan tembakan komputer. Ketik untuk memilih titik permulaan kapal"></svg></div>
+   <button class="ghost" id="nf" hidden>Mula semula</button>
+   <div id="q1" hidden></div>
+   <div class="card" style="margin-top:14px"><b>Ingat:</b> koordinat ditulis (x, y). Paksi-x ke kanan, paksi-y ke atas. Asalan O ialah (0, 0).</div>
+  </div>
+ </div>
+</section>
+
+<section class="panel" id="nisbah" hidden>
+ <h2>7.2 Nisbah: Peta dan dunia sebenar</h2>
+ <p class="sp">7.2.1 Mewakilkan hubungan antara dua kuantiti berdasarkan nisbah 1 : 1 hingga 1 : 10, 1 : 100 dan 1 : 1000.</p>
+ <p><b>Misi 2:</b> Peta harta daripada Misi 1 mempunyai skala 1 : k, iaitu 1 petak pada peta mewakili k km di dunia sebenar. Bandingkan peta dengan dunia sebenar untuk mengetahui jauh perjalanan anda.</p>
+ <div class="les" id="L2"></div>
+ <div class="two">
+  <div>
+   <p class="q">Pilih skala peta: petak peta berbanding km sebenar.</p>
+   <div class="kb" id="kb"></div>
+   <div class="vis" id="vis"></div>
+   <p class="info" id="rinfo" style="margin-top:12px"></p>
+   <p class="q" style="margin:12px 0 4px">Pembaris skala: peta berbanding dunia sebenar</p>
+   <label style="display:block;font-size:15px">Jarak pada peta: <b id="nv">3</b> petak <input type="range" id="ns" min="1" max="9" value="3" style="width:55%;vertical-align:middle"></label>
+   <svg id="rs" viewBox="0 0 560 160" style="width:100%;max-width:560px" role="img" aria-label="Perbandingan jarak pada peta dan jarak sebenar"></svg>
+  </div>
+  <div>
+   <p class="q">Ukur jarak ke harta karun</p>
+   <div id="q2"></div>
+  </div>
+ </div>
+</section>
+
+<section class="panel" id="kadaran" hidden>
+ <h2>7.3 Kadaran: Bekalan pelayaran</h2>
+ <p class="sp">7.3.1 Menentukan nilai yang tidak diketahui menggunakan kaedah unitari.</p>
+ <p><b>Misi 3:</b> Pelayaran ke harta memerlukan bekalan. Guna kaedah unitari untuk mengira air, laju kapal dan jisim emas.</p>
+ <div class="les" id="L3"></div>
+ <div class="two">
+  <div>
+   <div class="card"><b>Kadaran</b> ialah hubungan yang sama antara dua kuantiti, contohnya harga yang meningkat sekata apabila bilangan barang bertambah.<br><b>Kaedah unitari:</b> cari nilai bagi <b>1 unit</b> dahulu, kemudian darabkan dengan bilangan unit yang diminta.</div>
+   <div id="ex"></div>
+   <div class="row" style="margin-top:10px"><button class="go" id="exn">Tunjuk langkah</button><button class="ghost" id="exr">Contoh lain</button></div>
+  </div>
+  <div>
+   <p class="q">Cuba sendiri</p>
+   <div id="q3"></div>
+  </div>
+ </div>
+</section>
+
+<section class="panel" id="masalah" hidden>
+ <h2>7.4 Penyelesaian masalah: Cari harta karun</h2>
+ <p class="sp">7.4.1 Menyelesaikan masalah melibatkan koordinat, nisbah dan kadaran dalam situasi harian.</p>
+ <p><b>Misi akhir:</b> Gabungkan koordinat, skala peta dan kaedah unitari untuk menemui harta karun.</p>
+ <div class="les" id="L4"></div>
+ <div id="q4" style="max-width:640px"></div>
+</section>
+
+<section class="panel" id="latihan" hidden>
+ <h2>Latihan: Cabaran Harta</h2>
+ <p class="sp">Jawab 10 soalan. Soalan dijana secara rawak setiap kali, dan anda mendapat bintang tambahan mengikut skor.</p>
+ <div class="seg2" id="ct"><button data-c="-1" aria-pressed="true">Campuran</button><button data-c="0" aria-pressed="false">7.1 Koordinat</button><button data-c="1" aria-pressed="false">7.2 Nisbah</button><button data-c="2" aria-pressed="false">7.3 Kadaran</button><button data-c="3" aria-pressed="false">7.4 Masalah</button></div>
+ <div id="qc" style="max-width:640px"></div>
+</section>
+
+<section class="panel" id="kedai" hidden>
+ <h2>Kedai Harta</h2>
+ <p class="sp">Belanjakan bintang ⭐ anda untuk item digital. Aktiviti yang lebih lama dan lebih sukar memberi lebih banyak bintang. Pembelian anda disimpan pada pelayar ini.</p>
+ <div class="card"><b>Cara mendapat bintang</b><ul>
+  <li><b>Soalan latihan:</b> 1 bintang bagi setiap bahagian jawapan, jadi soalan 2 atau 3 langkah memberi 2 atau 3 bintang. Anda mendapat +1 bonus jika menjawab betul selepas berusaha 30 saat dan +2 selepas 75 saat.</li>
+  <li><b>Perang kapal:</b> menang memberi 2 (Mudah), 3 (Sederhana) atau 5 (Sukar) bintang, +1 atau +2 untuk armada yang lebih besar, ditambah 1 bintang bagi setiap 1.5 minit bermain (maksimum 4). Kalah pun anda mendapat bintang usaha jika bermain lama.</li>
+  <li><b>Cabaran Harta:</b> 1 hingga 3 bintang mengikut skor, ditambah bonus masa sehingga 3 bintang.</li>
+  <li><b>Masa belajar aktif:</b> bonus pada minit ke-2 (1 bintang), ke-5 (2), ke-10 (3) dan ke-15 (5), kemudian 3 bintang setiap 5 minit.</li>
+  <li><b>Pelajaran:</b> 3 bintang apabila anda menamatkan setiap pelajaran Kapten Camar (7.1 hingga 7.4).</li>
+  <li>Masa dikira hanya apabila anda aktif pada tab 7.1 hingga 7.4 dan Latihan. Jika anda diam lebih 30 saat, jam berhenti.</li></ul></div>
+ <p class="q" id="bal"></p>
+ <div id="shopbox"></div>
+ <h3 class="sh3">Papan hias latar</h3>
+ <p class="sp">Pilih stiker daripada koleksi anda, kemudian ketik pada papan untuk menampalnya. Seret stiker untuk menggerakkannya. Hiasan anda juga muncul pada latar peta di halaman Utama.</p>
+ <div class="row" id="tray" style="margin-bottom:8px"></div>
+ <div class="row" style="align-items:center">
+  <div class="seg2" id="dm"><button data-d="p" aria-pressed="true">Tampal</button><button data-d="b" aria-pressed="false">Buang</button></div>
+  <div class="seg2" id="dz"><button data-z="1" aria-pressed="false">Kecil</button><button data-z="2" aria-pressed="true">Sederhana</button><button data-z="3" aria-pressed="false">Besar</button></div>
+  <button class="ghost" id="dclr" style="margin-bottom:12px">Padam semua</button>
+ </div>
+ <p class="info" id="dmsg" style="min-height:0">Pilih stiker, kemudian ketik pada papan.</p>
+ <div id="board" class="board" aria-label="Papan hias latar"></div>
+</section>
+
+<section class="panel" id="rujukan" hidden>
+ <h2>Rujukan</h2>
+ <p class="sp">Senarai rujukan dalam format APA edisi ke-7. Sila semak format yang dikehendaki oleh pensyarah anda.</p>
+ <p class="ref">Bahagian Pembangunan Kurikulum. (2018). <i>Kurikulum Standard Sekolah Rendah: Matematik, Dokumen Standard Kurikulum dan Pentaksiran Tahun 4 (Edisi Bahasa Inggeris)</i>. Kementerian Pendidikan Malaysia.</p><p class="ref">Deterding, S., Dixon, D., Khaled, R., &amp; Nacke, L. (2011). From game design elements to gamefulness: Defining “gamification”. In <i>Proceedings of the 15th International Academic MindTrek Conference</i> (pp. 9–15). ACM. https://doi.org/10.1145/2181037.2181040</p><p class="ref">Keller, J. M. (2010). <i>Motivational design for learning and performance: The ARCS model approach</i>. Springer.</p><p class="ref">Mayer, R. E. (2009). <i>Multimedia learning</i> (2nd ed.). Cambridge University Press.</p><p class="ref">Sweller, J., Ayres, P., &amp; Kalyuga, S. (2011). <i>Cognitive load theory</i>. Springer.</p><p class="ref">Vygotsky, L. S. (1978). <i>Mind in society: The development of higher psychological processes</i>. Harvard University Press.</p><p class="ref">World Wide Web Consortium. (2018). <i>Web content accessibility guidelines (WCAG) 2.1</i>. https://www.w3.org/TR/WCAG21/</p>
+ <h3 class="sh3">Kredit teknologi dan grafik</h3>
+ <p>Laman ini dibina dengan HTML, CSS dan JavaScript. Semua peta, pulau, kapal dan hiasan dilukis sendiri menggunakan SVG. Fon Baloo 2 (Ek Type) dan Nunito (Vernon Adams) daripada Google Fonts (https://fonts.google.com). Emoji dipaparkan oleh peranti pengguna.</p>
+</section>
+
+<p class="note">Dibina berdasarkan DSKP KSSR Semakan 2017 Matematik Tahun 4, Topik 7. Semua grafik dilukis dengan SVG dan CSS; tiada imej atau audio luar digunakan.</p>
+</div>
+
+<div class="ovl" id="ovl" hidden><div class="ovb"><div class="ovt" id="ovt"></div><div id="ovs" style="margin-top:8px;font-size:17px"></div><div class="row" style="justify-content:center;margin-top:14px"><button class="go" id="ova">Main semula</button><button class="go" id="ovn" hidden>Teruskan ke Misi 2</button><button class="ghost" id="ovc">Tutup</button></div></div><div id="conf"></div></div>
+<div id="mas">
+ <button class="mchar" id="mchar" aria-label="Kapten Camar, pemandu anda. Ketik untuk mendapatkan petunjuk"></button>
+ <div class="mbub" id="mbub" hidden role="status"><div id="mtxt"></div><div class="mbt"><button class="ghost" id="msay" aria-label="Dengar kata-kata ini">🔈 Dengar</button><button class="ghost" id="mtip">💡 Petunjuk</button><button class="ghost" id="mhide" aria-label="Tutup">✕</button></div></div>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+<script>
+const $=s=>document.querySelector(s),R=(a,b)=>a+Math.floor(Math.random()*(b-a+1)),P=a=>a[R(0,a.length-1)];
+const SK='phm-v1';let earned=0,spent=0,owned=['av0','th0','tt0'],eq={av:'av0',th:'th0',tt:'tt0'},tot={},cor={},mOn=true,sOn=true,deco=[],selS=null,dmode='p',dsz=2,les={},gOn=true,vol=100;
+try{const d=JSON.parse(localStorage.getItem(SK)||'null');if(d){earned=d.e|0;spent=d.s|0;owned=d.o||owned;eq=d.q||eq;tot=d.t||{};cor=d.c||{};if('m' in d){mOn=!!d.m;sOn=!!d.x}deco=Array.isArray(d.k)?d.k:[];les=d.l||{};if('g' in d)gOn=!!d.g;if('v' in d)vol=Math.max(0,Math.min(100,d.v|0))}}catch(e){}
+const save=()=>{try{localStorage.setItem(SK,JSON.stringify({e:earned,s:spent,o:owned,q:eq,t:tot,c:cor,m:+mOn,x:+sOn,k:deco,l:les,g:+gOn,v:vol}))}catch(e){}};
+const bal=()=>earned-spent;
+let act=0,lastI=Date.now(),curTab='utama',nextM=0,tt=null,nudged=0,mti=0;const LQ={};
+function toast(m){const t=$('#toast');if(!t)return;t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),3800)}
+function award(n,why){if(n<=0)return;earned+=n;save();paint();toast(`+${n} ⭐ ${why||''}`.trim());if(why&&why.includes('bonus masa belajar'))say('Bonus masa belajar! Anda sangat gigih, Kapten.','happy')}
+/*TIME-START*/
+const LAD=[[120,1],[300,2],[600,3],[900,5]],ACT=['koordinat','nisbah','kadaran','masalah','latihan'];
+const nextT=()=>nextM<LAD.length?LAD[nextM][0]:900+(nextM-LAD.length+1)*300;
+function tick(now){if(document.hidden||now-lastI>30000||!ACT.includes(curTab))return;act++;
+ if(act>=nextT()){const n=nextM<LAD.length?LAD[nextM][1]:3;award(n,'bonus masa belajar');nextM++}
+ const e=nextT()-act;$('#tmr').textContent=`⏱️ Masa aktif ${Math.floor(act/60)}:${String(act%60).padStart(2,'0')} · bonus dalam ${Math.floor(e/60)}:${String(e%60).padStart(2,'0')}`}
+/*TIME-END*/
+['pointerdown','keydown','input'].forEach(ev=>document.addEventListener(ev,()=>{lastI=Date.now();nudged=0},true));
+setInterval(()=>tick(Date.now()),1000);
+const G={x:R(3,9),y:R(3,9),k:R(2,5)};
+const prog={k1:0,k2:0,k3:0,k4:0},need={k1:1,k2:2,k3:2,k4:2};
+function adv(k){if(prog[k]<need[k])prog[k]++;upd()}
+function upd(){let n=0;let cur=0;for(const k in need){const ok=prog[k]>=need[k],i=k.slice(1),st=$('#s'+i);if(ok)n++;$('#p'+i).textContent=ok?'✅ Selesai':prog[k]+'/'+need[k];st.classList.toggle('dn',ok);st.classList.toggle('cur',!ok&&!cur);st.querySelector('.mk').textContent=ok?'✓':i;if(!ok)cur=1}$('#s5').classList.toggle('dn',n===4);for(let i=1;i<=5;i++){const d=$('#s'+i).classList.contains('dn');$('#i'+i).classList.toggle('dn',d);$('#g'+i).classList.toggle('dn',d)}pointNext();
+ $('#chest').textContent=n===4?`🏆 Tahniah! Harta di (${G.x}, ${G.y})`:`Selesaikan 4 misi (${n}/4)`}
+
+/* Tab */
+const tabs=[...document.querySelectorAll('nav button')];
+function go(id){sfx('click');curTab=id;mTab(id);tabs.forEach(t=>t.setAttribute('aria-selected',t.dataset.t===id));document.querySelectorAll('section.panel').forEach(s=>s.hidden=s.id!==id);window.scrollTo(0,0)}
+tabs.forEach(b=>b.onclick=()=>go(b.dataset.t));
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go));
+
+/* Enjin kuiz */
+function quiz(box,gen,onNew,onOk,onAny){
+ let q,tries;
+ function next(){q=gen();tries=0;q.t0=act;LQ['#'+box.id]=q;
+  if(q.end){box.innerHTML=q.end;return}
+  box.innerHTML=`<p class="q">${q.text}</p>`+(q.opts?`<div class="row opts">${q.opts.map((o,i)=>`<button class="ghost" data-o="${i}">${o}</button>`).join('')}</div>`:`<div class="f">${q.fields.map((f,i)=>`<label>${f}<input inputmode="decimal" autocomplete="off" data-i="${i}"></label>`).join('')}</div>`)+`<div class="row" style="margin-top:8px">${q.opts?'':'<button class="go" data-a="chk">Semak</button>'}<button class="ghost" data-a="hint">Petunjuk</button><button class="ghost" data-a="nx">${q.nx||'Soalan lain'}</button></div><p class="fb" aria-live="polite"></p>`;
+  onNew&&onNew(q)}
+ function res(ok){const fb=box.querySelector('.fb'),first=!tries;onAny&&onAny(ok,q,first);if(ok)q.done=1;sfx(ok?(tries?'ok':'star'):'no');
+  if(ok){fb.className='fb ok';let ex='';if(!tries){const w=q.opts?1:q.fields.length,sec=act-(q.t0==null?act:q.t0),tb=sec>=75?2:sec>=30?1:0,n=w+tb;award(n,tb?'termasuk bonus masa':'');ex=` (+${n} ⭐${tb?', termasuk bonus masa':''})`;onOk&&onOk()}fb.textContent='Betul! '+q.why+ex;if(q.opts)box.querySelectorAll('.opts button').forEach(b=>b.disabled=true)}
+  else{q.w=(q.w||0)+1;fb.className='fb no';fb.textContent=q.w>=3?'Jangan risau! Ini cara penyelesaiannya: '+q.why:q.w===2?'Belum tepat. Petunjuk: '+q.hint:(q.opts?'Belum tepat. Cuba pilihan lain atau tekan Petunjuk.':'Belum tepat. Semak kotak bergaris merah atau tekan Petunjuk.')}
+  mReact(ok,q,first);tries=1}
+ box.onclick=e=>{const t=e.target.closest('button');if(!t||!q)return;const a=t.dataset.a;
+  if(t.dataset.o!==undefined){if(q.end)return;const ok=+t.dataset.o===q.ans[0];t.classList.add(ok?'o':'x');res(ok);return}
+  if(a==='nx')return next();
+  if(q.end)return;
+  if(a==='hint'){const fb=box.querySelector('.fb');fb.className='fb';fb.textContent='Petunjuk: '+q.hint;return}
+  if(a==='chk'){let all=true;box.querySelectorAll('input').forEach((el,i)=>{const v=Number(el.value.replace(',','.').trim());const ok=el.value.trim()!==''&&v===q.ans[i];el.className=ok?'o':'x';if(!ok)all=false});res(all)}};
+ box.onkeydown=e=>{if(e.key==='Enter'){const b=box.querySelector('[data-a=chk]');b&&b.click()}};
+ return{next}}
+
+/* Koordinat */
+const S=36,X0=44,Y0=396,N=10,svg=$('#g'),objs=[['⛵','kapal'],['🌴','pokok kelapa'],['🐚','kerang'],['💎','permata'],['🏝️','pulau'],['🦀','ketam']];
+let h='';
+for(let i=0;i<=N;i++){h+=`<line class="gl" x1="${X0+i*S}" y1="${Y0}" x2="${X0+i*S}" y2="${Y0-N*S}"/><line class="gl" x1="${X0}" y1="${Y0-i*S}" x2="${X0+N*S}" y2="${Y0-i*S}"/><text class="t" x="${X0+i*S}" y="${Y0+18}" text-anchor="middle">${i}</text>`+(i?`<text class="t" x="${X0-10}" y="${Y0-i*S+4}" text-anchor="end">${i}</text>`:'')}
+h+=`<line class="ax" x1="${X0}" y1="${Y0}" x2="${X0+N*S+14}" y2="${Y0}"/><line class="ax" x1="${X0}" y1="${Y0}" x2="${X0}" y2="${Y0-N*S-14}"/><text class="t b" x="${X0+N*S/2}" y="${Y0+38}" text-anchor="middle">Paksi-x</text><text class="t b" transform="translate(12 ${Y0-N*S/2}) rotate(-90)" text-anchor="middle">Paksi-y</text><text class="t b" x="${X0-14}" y="${Y0+18}" text-anchor="end">O</text><circle id="hv" class="hv" r="9" cx="-30" cy="-30"/><g id="sn"><g class="sw"><path d="M224 216L224 26A190 190 0 0 1 358 82Z" fill="rgba(60,255,150,.22)"/></g><circle cx="224" cy="216" r="63" fill="none" stroke="rgba(60,255,150,.35)"/><circle cx="224" cy="216" r="127" fill="none" stroke="rgba(60,255,150,.3)"/><circle cx="224" cy="216" r="190" fill="none" stroke="rgba(60,255,150,.3)"/></g><g id="pts"></g><g id="fx"></g>`;
+svg.innerHTML=h;
+const pts=$('#pts'),hv=$('#hv'),info=$('#info');
+const px=x=>X0+x*S,py=y=>Y0-y*S;
+function pos(e){const r=svg.getBoundingClientRect(),k=440/r.width;
+ const c=v=>Math.max(0,Math.min(N,v));
+ return{x:c(Math.round(((e.clientX-r.left)*k-X0)/S)),y:c(Math.round((Y0-(e.clientY-r.top)*k)/S))}}
+function put(x,y,em,guide){let s='';
+ if(guide)s+=trk(x,y)+`<line class="gd" x1="${X0}" y1="${py(y)}" x2="${px(x)}" y2="${py(y)}"/><line class="gd" x1="${px(x)}" y1="${Y0}" x2="${px(x)}" y2="${py(y)}"/>`;
+ s+=em?`<text x="${px(x)}" y="${py(y)+8}" text-anchor="middle" font-size="24">${em}</text>`:`<circle class="pt" cx="${px(x)}" cy="${py(y)}" r="7"/>`;
+ pts.innerHTML+=s}
+let mode='explore',tg;
+svg.onpointermove=e=>{if(mode!=='explore')return;const p=pos(e);hv.setAttribute('cx',px(p.x));hv.setAttribute('cy',py(p.y))};
+svg.onpointerleave=()=>{hv.setAttribute('cx',-30)};
+let fleet,used,shots,mine,mused,cshots,queue,over,busy,tm,lvl=0,phase='setup',won=0,bt0=0,hits=0,streak=0,maxS=0,comboPaid=0,radars=0,tm2=null;let LENS=[3,2,2];const FLEETS=[[3,2,2],[3,3,2,2],[4,3,3,2,2]],LV=['Mudah','Sederhana','Sukar'],LD=['Komputer menembak secara rawak.','Selepas kena, komputer menembak titik di sekeliling.','Komputer mengira kedudukan kapal yang paling mungkin.'];
+function place(){const u=new Set(),f=[];for(const L of LENS){let c;do{const hz=Math.random()<.5,x=R(1,hz?10-L:9),y=R(1,hz?9:10-L);c=[...Array(L)].map((_,i)=>hz?[x+i,y]:[x,y+i])}while(c.some(p=>u.has(p+'')));c.forEach(p=>u.add(p+''));f.push(c)}return[f,u]}
+const done=(f,sh)=>f.every(s=>s.every(p=>sh.has(p+'')));
+const sk=(f,sh,k)=>f.some(s=>s.some(p=>p+''===k)&&s.every(p=>sh.has(p+'')));
+const mo=22,ms=18;
+function drawMine(){let h='';
+ for(let i=0;i<=10;i++)h+=`<line class="gl" x1="${mo+i*ms}" y1="${mo}" x2="${mo+i*ms}" y2="${mo+10*ms}"/><line class="gl" x1="${mo}" y1="${mo+i*ms}" x2="${mo+10*ms}" y2="${mo+i*ms}"/><text class="t" style="font-size:9px" x="${mo+i*ms}" y="${mo+10*ms+12}" text-anchor="middle">${i}</text><text class="t" style="font-size:9px" x="${mo-5}" y="${mo+(10-i)*ms+3}" text-anchor="end">${i}</text>`;
+ const at=(x,y,e)=>`<text x="${mo+x*ms}" y="${mo+(10-y)*ms+5}" text-anchor="middle" font-size="14">${e}</text>`;
+ mine.flat().forEach(([x,y])=>h+=at(x,y,'⛵'));if(pv)pv.c.forEach(([x,y])=>h+=`<circle cx="${mo+x*ms}" cy="${mo+(10-y)*ms}" r="8" fill="${pv.ok?'rgba(60,200,100,.6)':'rgba(220,60,60,.6)'}"/>`);
+ cshots.forEach(k=>{const[x,y]=k.split(',').map(Number);h+=at(x,y,mused.has(k)?(sk(mine,cshots,k)?'🔥':'💥'):'💧')});
+ $('#m').innerHTML=h+'<g id="mfx"></g>'}
+function newFind(){pv=null;clearTimeout(tm);clearTimeout(tm2);$('#hud').hidden=true;$('#ovl').hidden=true;svg.classList.remove('sonar');hits=0;streak=0;pts.innerHTML='';[fleet,used]=place();mine=[];mused=new Set();shots=new Set();cshots=new Set();queue=[];over=false;busy=false;phase='setup';
+ $('#nxt').hidden=true;$('#setup').hidden=false;$('#play').hidden=true;$('#sx').value=$('#sy').value='';updPl();drawMine();
+ info.textContent='Pilih tahap kesukaran dan saiz armada, kemudian letak kapal anda di Laut anda. Taip koordinat (x, y) titik permulaan, atau ketik pada Laut anda.'}
+function updPl(){const n=mine.length,T=LENS.length;
+ $('#pl').innerHTML=(n<T?`Letak kapal ke-${n+1} daripada ${T} (panjang ${LENS[n]} titik)`:'Semua kapal sudah diletakkan')+'<br>'+LENS.map((L,i)=>`<span class="sb${i<n?' p':i===n?' c':''}">${'<i></i>'.repeat(L)}</span>`).join('');
+ $('#pbtn').hidden=$('#prnd').hidden=n>=T;$('#start').hidden=n<T;$('#pclr').hidden=$('#pund').hidden=n===0}
+$('#lv').onclick=e=>{const b=e.target.closest('button');if(!b)return;lvl=+b.dataset.l;[...$('#lv').children].forEach(x=>x.setAttribute('aria-pressed',x===b));$('#lvd').textContent=LD[lvl]};
+/*PLC-START*/
+let pv=null;const DR={h:[1,0],l:[-1,0],v:[0,1],b:[0,-1]};
+const cells=(x,y,L,d)=>[...Array(L)].map((_,i)=>[x+DR[d][0]*i,y+DR[d][1]*i]);
+function shipErr(c,used2){if(c.some(([u,v])=>u<1||v<1||u>9||v>9))return'Kapal keluar dari laut. Semua titik kapal mesti antara 1 dan 9.';if(c.some(q=>used2.has(q+'')))return'Kapal bertindih dengan kapal lain.';return''}
+function fillRand(f,u2){let g=0;while(f.length<LENS.length&&g++<800){const L=LENS[f.length],c=cells(R(1,9),R(1,9),L,P(['h','l','v','b']));if(!shipErr(c,u2)){f.push(c);c.forEach(q=>u2.add(q+''))}}return f.length===LENS.length}
+/*PLC-END*/
+function prevUpd(){if(phase!=='setup'||mine.length>=LENS.length){pv=null;$('#pmsg').textContent='';drawMine();return}
+ const a=$('#sx').value.trim(),b=$('#sy').value.trim(),x=+a,y=+b;
+ if(a===''||b===''||!Number.isInteger(x)||!Number.isInteger(y)){pv=null;$('#pmsg').textContent='';drawMine();return}
+ const L=LENS[mine.length],c=cells(x,y,L,$('#sd').value),er=shipErr(c,mused),e=c[L-1];
+ pv={c:c.filter(([u,v])=>u>=0&&v>=0&&u<=10&&v<=10),ok:!er};$('#pmsg').textContent=er||`Pratonton: dari (${x}, ${y}) hingga (${e[0]}, ${e[1]}). Tekan Letak kapal.`;drawMine()}
+['sx','sy'].forEach(i=>$('#'+i).oninput=prevUpd);$('#sd').onchange=prevUpd;
+$('#pbtn').onclick=()=>{if(phase!=='setup'||mine.length>=LENS.length)return;const a=$('#sx').value.trim(),b=$('#sy').value.trim(),x=+a,y=+b;
+ if(a===''||b===''||!Number.isInteger(x)||!Number.isInteger(y)){info.textContent='Taip nombor bulat untuk x dan y.';return}
+ const L=LENS[mine.length],c=cells(x,y,L,$('#sd').value),er=shipErr(c,mused),e=c[L-1];
+ if(er){info.textContent=`${er} Kapal bermula di (${x}, ${y}) akan sampai ke (${e[0]}, ${e[1]}).`;return}
+ mine.push(c);c.forEach(q=>mused.add(q+''));pv=null;sfx('place');drawMine();updPl();$('#sx').value=$('#sy').value='';$('#pmsg').textContent='';
+ info.textContent=`Kapal diletakkan dari (${x}, ${y}) hingga (${e[0]}, ${e[1]}).`+(mine.length<LENS.length?' Letak kapal seterusnya.':' Tekan Mula perang!')};
+$('#prnd').onclick=()=>{if(phase!=='setup')return;if(!fillRand(mine,mused)){mine=[];mused=new Set();fillRand(mine,mused)}pv=null;
+ sfx('place');sfx('place',.18);sfx('place',.36);drawMine();updPl();$('#pmsg').textContent='';info.textContent='Kapal yang tinggal disusun secara rawak. Tekan Mula perang!'};
+$('#pund').onclick=()=>{if(phase!=='setup'||!mine.length)return;mine.pop().forEach(q=>mused.delete(q+''));pv=null;sfx('click');drawMine();updPl();$('#pmsg').textContent='';info.textContent=`Kapal terakhir dibuang. Letak semula kapal ke-${mine.length+1}.`};
+$('#pclr').onclick=()=>{if(phase!=='setup')return;mine=[];mused=new Set();pv=null;drawMine();updPl();$('#pmsg').textContent='';info.textContent='Susunan diulang. Letak kapal ke-1.'};
+$('#m').onclick=e=>{if(phase!=='setup'||mine.length>=LENS.length)return;const r=$('#m').getBoundingClientRect(),k=220/r.width,x=Math.round(((e.clientX-r.left)*k-mo)/ms),y=10-Math.round(((e.clientY-r.top)*k-mo)/ms);
+ if(x<1||x>9||y<1||y>9)return;$('#sx').value=x;$('#sy').value=y;sfx('click');prevUpd()};
+$('#fs').onclick=e=>{const b=e.target.closest('button');if(!b||phase!=='setup')return;LENS=FLEETS[+b.dataset.f];[...$('#fs').children].forEach(x=>x.setAttribute('aria-pressed',x===b));
+ [fleet,used]=place();mine=[];mused=new Set();pv=null;updPl();drawMine();$('#pmsg').textContent='';info.textContent=`Armada ${LENS.length} kapal. Letak kapal anda di Laut anda.`;sfx('click')};
+$('#start').onclick=()=>{if(mine.length<LENS.length)return;pv=null;sfx('start');bt0=act;phase='play';hits=0;streak=0;maxS=0;comboPaid=0;radars=[3,2,1][lvl];svg.classList.add('sonar');say('Perang bermula! Taip x dahulu, kemudian y, dan tekan Tembak.','happy');$('#setup').hidden=true;$('#play').hidden=false;$('#bx').value=$('#by').value='';
+ info.textContent=`Perang bermula (tahap ${LV[lvl]}). Taip koordinat (x, y) kapal komputer pada grid besar, kemudian tekan Tembak. Anda menembak dahulu. Gunakan radar 📡 dengan bijak.`;hud()};
+[['bx','fire'],['by','fire'],['sx','pbtn'],['sy','pbtn']].forEach(([i,b])=>$('#'+i).onkeydown=e=>{if(e.key==='Enter')$('#'+b).click()});
+function rnd(){let k;do{k=R(1,9)+','+R(1,9)}while(cshots.has(k));return k}
+function pick(){
+ if(lvl===0)return rnd();
+ if(lvl===1){while(queue.length){const c=queue.shift();if(!cshots.has(c))return c}return rnd()}
+ const rem=mine.filter(s=>!s.every(p=>cshots.has(p+''))).map(s=>s.length);
+ const hits=[];cshots.forEach(k=>{if(mused.has(k)&&!mine.some(s=>s.some(p=>p+''===k)&&s.every(q=>cshots.has(q+''))))hits.push(k)});
+ const sc={};
+ for(const L of rem)for(let x=1;x<=9;x++)for(let y=1;y<=9;y++)for(const hz of[1,0]){
+  const c=[...Array(L)].map((_,i)=>hz?[x+i,y]:[x,y+i]);
+  if(c.some(([u,v])=>u>9||v>9||(cshots.has(u+','+v)&&!hits.includes(u+','+v))))continue;
+  const w=1+50*c.filter(p=>hits.includes(p+'')).length;
+  c.forEach(p=>{if(!cshots.has(p+''))sc[p]=(sc[p]||0)+w})}
+ const mx=Math.max(0,...Object.values(sc)),best=Object.keys(sc).filter(k=>sc[k]===mx);
+ return best.length?P(best):rnd()}
+function cfire(m,k0){const k=k0||pick();cshots.add(k);const[x,y]=k.split(',').map(Number),hit=mused.has(k);
+ if(lvl===1&&hit)[[1,0],[-1,0],[0,1],[0,-1]].forEach(([a,b])=>{const nx=x+a,ny=y+b;if(nx>0&&nx<10&&ny>0&&ny<10&&!cshots.has(nx+','+ny))queue.push(nx+','+ny)});
+ drawMine();
+ sfx(hit?(sk(mine,cshots,k)?'sunk':'hit'):'splash');mEnemy(hit,hit&&sk(mine,cshots,k),x,y);miniFx(x,y,hit);let c=`<b>Komputer:</b> ${hit?'kena':'tersasar'} di (${x}, ${y}). `+(hit&&sk(mine,cshots,k)?'Satu kapal anda tenggelam. ':'');
+ if(done(mine,cshots)){over=true;sfx('lose',1);say('Jangan sedih, Kapten. Cuba lagi dan fikirkan di mana kapal musuh mungkin bersembunyi.','sad');const tb=Math.min(2,Math.floor((act-bt0)/120));if(tb)award(tb,'usaha dalam Perang kapal');setTimeout(()=>showEnd(0,0,tb),1300);c+='Semua kapal anda tenggelam, komputer menang.'+(tb?` Anda mendapat ${tb} bintang ⭐ kerana berusaha.`:'')+' Tekan Mula semula untuk cuba lagi.'}else c+='Giliran anda.';
+ info.innerHTML=m+'<br>'+c;hud()}
+$('#fire').onclick=()=>{if(phase!=='play'||over||busy)return;const a=$('#bx').value.trim(),b=$('#by').value.trim(),x=+a,y=+b,k=x+','+y;
+ if(a===''||b===''||!Number.isInteger(x)||!Number.isInteger(y)||x<0||y<0||x>10||y>10){info.textContent='Taip nombor bulat 0 hingga 10 untuk x dan y.';return}
+ if(shots.has(k)){info.textContent=`Anda sudah menembak (${x}, ${y}). Pilih titik lain.`;return}
+ shots.add(k);const hit=used.has(k),sunkNow=hit&&sk(fleet,shots,k);hits+=hit?1:0;streak=hit?streak+1:0;maxS=Math.max(maxS,streak);fxShot(x,y,hit,sunkNow);if(streak===3&&!comboPaid){comboPaid=1;award(1,'kombo 3 kena berturut-turut');sfx('combo',.8)}$('#bx').value=$('#by').value='';$('#bx').focus();sfx('fire');sfx(hit&&sk(fleet,shots,k)?'sunk':hit?'hit':'splash',.6);mBattle(hit,hit&&sk(fleet,shots,k),x,y);if(streak>=2)say('KOMBO ×'+streak+'! Teruskan, Kapten!','cheer');
+ let m=`<b>Anda:</b> ${hit?'kena':'tersasar'} di (${x}, ${y}). `+(hit&&sk(fleet,shots,k)?'Satu kapal komputer tenggelam. ':'');
+ if(done(fleet,shots)){over=true;sfx('win',1.5);say('Tahniah, Kapten! Kita menang dan peta harta sudah ditemui!','cheer');const tb=Math.min(4,Math.floor((act-bt0)/90)),g=[2,3,5][lvl]+(LENS.length-3)+tb;award(g,'menang Perang kapal');adv('k1');$('#nxt').hidden=false;setTimeout(()=>showEnd(1,g,tb),1900);
+  info.innerHTML=m+`<br>Anda menang pada tahap ${LV[lvl]} dalam ${shots.size} tembakan! Anda mendapat ${g} bintang ⭐${tb?` (termasuk ${tb} bonus masa)`:''}. Peta harta ditemui: harta karun di (${G.x}, ${G.y}) dan skala peta ialah 1 : ${G.k}. Tekan Mula semula untuk mencuba tahap lain.`;return}
+ sfx('enemy',1);busy=true;hud();const ek=pick();tm2=setTimeout(()=>enemyBall(ek),1250);info.innerHTML=m+'<br>Komputer sedang menembak...';
+ tm=setTimeout(()=>{busy=false;cfire(m,ek)},1700)};
+$('#nxt').onclick=()=>go('nisbah');
+svg.onclick=e=>{if(mode==='read')return;if(mode==='find')return;const p=pos(e);pts.innerHTML='';
+ if(mode==='explore'){sfx('click');put(p.x,p.y,0,1);info.innerHTML=`Titik <b>(${p.x}, ${p.y})</b>: ${p.x} petak ke kanan dari asalan, ${p.y} petak ke atas.`+(p.x+p.y===0?' Ini ialah asalan O (0, 0).':'')}
+};
+const rq=quiz($('#q1'),()=>gen1(),q=>{pts.innerHTML='';if(q.pt)put(q.pt[0],q.pt[1],q.pt[2],0)},null,(ok,q,f)=>{rec('k1',ok,f);if(ok&&q.pt){pts.innerHTML='';put(q.pt[0],q.pt[1],q.pt[2],1)}});
+document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{
+ mode=b.dataset.m;document.querySelectorAll('.seg button').forEach(x=>x.setAttribute('aria-pressed',x===b));pts.innerHTML='';
+ $('#q1').hidden=mode!=='read';$('#bt').hidden=mode!=='find';hv.setAttribute('cx',-30);svg.style.cursor=mode==='explore'?'crosshair':'default';svg.classList.toggle('sonar',mode==='find'&&phase==='play');$('#nf').hidden=mode!=='find';
+ if(mode==='explore')info.textContent='Klik pada mana-mana titik silang untuk melihat koordinatnya.';
+ if(mode==='find')newFind();if(mode==='read'){info.textContent='Jawab soalan koordinat. Sesetengah soalan menggunakan grid.';rq.next()}});
+$('#nf').onclick=newFind;
+info.textContent='Klik pada mana-mana titik silang untuk melihat koordinatnya.';
+
+/* Nisbah: skala peta */
+let rk=G.k,rn=3;const ks=[1,2,3,4,5,6,7,8,9,10,100,1000];
+$('#kb').innerHTML=ks.map(k=>`<button data-k="${k}" aria-pressed="${k===G.k}">1 : ${k}</button>`).join('');
+function rat(k){
+ $('#vis').innerHTML=k<=10?'<i class="d a"></i><b>:</b>'+'<i class="d w"></i>'.repeat(k):'<i class="d a"></i><b>:</b><span class="dots">'+'<i class="d w m"></i>'.repeat(100)+'</span>';
+ $('#rinfo').innerHTML=`Skala <b>1 : ${k}</b>, dibaca satu berbanding ${k}. Bulatan kuning ialah 1 petak pada peta. Bulatan biru mewakili ${k} km di dunia sebenar.`+(k===1000?' Setiap titik kecil mewakili 10 km.':'')+(k===100?' Terdapat 100 titik kecil.':'');
+ document.querySelectorAll('#kb button').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.k===k));rk=k;rul()}
+$('#kb').onclick=e=>{if(e.target.dataset.k)rat(+e.target.dataset.k)};rat(G.k);
+/*GEN-START*/
+const mc=(text,opts,ci,hint,why)=>{const o=opts.map((t,i)=>[t,i===ci]).sort(()=>Math.random()-.5);return{text,opts:o.map(x=>x[0]),ans:[o.findIndex(x=>x[1])],hint,why}};
+function gen1(ng){const t=R(ng?1:0,5),x=R(1,9),y=R(1,9);
+ if(t===0){const e=P(objs);return{text:`Di manakah ${e[0]} ${e[1]} pada grid? Tulis koordinatnya.`,fields:['x','y'],ans:[x,y],hint:'Mula dari O. Kira petak ke kanan dahulu (x), kemudian ke atas (y).',why:`${e[1]} berada di (${x}, ${y}).`,pt:[x,y,e[0]]}}
+ if(t===1){const k=R(0,2),a=k===0?x:0,b=k===1?y:0,n=['Paksi-x','Paksi-y','Asalan (O)'];
+  return mc(`Titik (${a}, ${b}) terletak pada ...`,n,k,'Jika y = 0, titik berada pada paksi-x. Jika x = 0, titik berada pada paksi-y. Jika kedua-duanya 0, titik ialah asalan.',`Titik (${a}, ${b}) berada pada ${n[k]}.`)}
+ if(t===2)return{text:`Sebuah kapal berada ${x} petak ke kanan dan ${y} petak ke atas dari asalan O. Apakah koordinat kapal itu?`,fields:['x','y'],ans:[x,y],hint:'Koordinat ditulis (x, y): ke kanan dahulu, kemudian ke atas.',why:`Koordinat kapal ialah (${x}, ${y}).`};
+ if(t===3){let a=x,b=y;if(a===b)b=a%9+1;return mc(`Adakah titik (${a}, ${b}) dan titik (${b}, ${a}) ialah titik yang sama?`,['Ya, sama','Tidak, berbeza'],1,'Nombor pertama ialah x (ke kanan), nombor kedua ialah y (ke atas).','Susunan nombor penting. Titik itu berbeza kerana nilai x dan y bertukar tempat.')}
+ const h=t===4,u=R(1,4),w=R(5,9),f=R(1,9);
+ return{text:h?`Titik A (${u}, ${f}) dan titik B (${w}, ${f}) berada pada garis mendatar yang sama. Berapa petak jarak antara A dan B?`:`Titik A (${f}, ${u}) dan titik B (${f}, ${w}) berada pada garis menegak yang sama. Berapa petak jarak antara A dan B?`,fields:['Jarak (petak)'],ans:[w-u],hint:'Tolak nombor yang berbeza: nombor besar tolak nombor kecil.',why:`${w} − ${u} = ${w-u} petak.`}}
+const pairs=[['cawan sirap','cawan air'],['sudu gula','sudu tepung'],['tin cat biru','tin cat putih']];
+function gen2(){const t=R(0,6);
+ if(t===0)return{text:`Peta harta menunjukkan harta karun di (${G.x}, ${G.y}) dari asalan O (0, 0). Skala peta ialah 1 : ${G.k}, iaitu 1 petak mewakili ${G.k} km. Berapakah jarak sebenar ke kanan dan ke atas?`,fields:['Ke kanan (km)','Ke atas (km)'],ans:[G.x*G.k,G.y*G.k],hint:`Darab koordinat dengan ${G.k}. x memberi jarak ke kanan, y memberi jarak ke atas.`,why:`${G.x} × ${G.k} = ${G.x*G.k} km dan ${G.y} × ${G.k} = ${G.y*G.k} km.`};
+ if(t===1){const k=P([2,3,4,5,10,100]),n=k===100?R(2,5):R(2,9);return{text:`Skala sebuah peta ialah 1 : ${k}. Jarak antara dua pulau pada peta ialah ${n} petak. Berapakah jarak sebenar (km)?`,fields:['Jarak sebenar (km)'],ans:[n*k],hint:`1 petak mewakili ${k} km. Darab ${n} dengan ${k}.`,why:`${n} × ${k} = ${n*k} km.`}}
+ if(t===2){const k=P([2,3,4,5,6,10,100]),q=k===100?R(2,5):R(2,9),p=P(pairs);return{text:`Nisbah ${p[0]} kepada ${p[1]} ialah 1 : ${k}. Jika ada ${q} ${p[0]}, berapakah ${p[1]} yang diperlukan?`,fields:[p[1]],ans:[q*k],hint:`Setiap 1 ${p[0]} perlukan ${k} ${p[1]}. Darab ${q} dengan ${k}.`,why:`${q} × ${k} = ${q*k} ${p[1]}.`}}
+ if(t===3){const k=R(2,10);return{text:`Dalam satu kumpulan ada 1 ketua dan ${k} ahli. Tulis nisbah ketua kepada ahli sebagai 1 : ?`,fields:['Nilai kedua'],ans:[k],hint:'Nilai pertama mewakili ketua, nilai kedua mewakili ahli.',why:`Nisbah ketua kepada ahli ialah 1 : ${k}.`}}
+ if(t===4){const k=R(2,10);return mc(`Nisbah manakah menunjukkan 1 sudu garam berbanding ${k} sudu air?`,[`1 : ${k}`,`${k} : 1`,`1 : ${k+1}`],0,'Garam disebut dahulu, jadi nombor pertama mewakili garam.',`Garam disebut dahulu, jadi nisbahnya ialah 1 : ${k}.`)}
+ if(t===5){const a=R(2,5),b=R(a+1,9);return mc(`Antara 1 : ${a} dan 1 : ${b}, nisbah mana yang mempunyai lebih banyak air bagi setiap 1 cawan sirap?`,[`1 : ${a}`,`1 : ${b}`],1,'Bandingkan nombor kedua. Nombor kedua mewakili air.',`${b} lebih besar daripada ${a}, jadi 1 : ${b} mempunyai lebih banyak air.`)}
+ const k=P([2,3,4,5,10]),n=R(2,9);return{text:`Skala peta ialah 1 : ${k}. Jarak sebenar antara dua pelabuhan ialah ${n*k} km. Berapa petak jarak itu pada peta?`,fields:['Jarak pada peta (petak)'],ans:[n],hint:`Bahagi ${n*k} dengan ${k}.`,why:`${n*k} ÷ ${k} = ${n} petak.`}}
+function u3(){const a=R(2,6);let b=R(2,10);if(b===a)b++;const u=R(2,9),t=a*u,v=u*b,c=R(0,4);
+ if(c===3){const steps=[`Cari harga 1 pen: RM${t} ÷ ${a} = RM${u}`,`Cari bilangan pen: RM${v} ÷ RM${u} = ${b}`];
+  return{text:`${a} batang pen berharga RM${t}. Berapa batang pen boleh dibeli dengan RM${v}?`,fields:['Harga 1 pen (RM)','Bilangan pen'],ans:[u,b],bar:{a,b,u,t,v,pre:'RM',suf:''},hint:`Cari harga 1 pen dahulu: ${t} ÷ ${a}. Kemudian bahagi RM${v} dengan harga 1 pen.`,why:steps.join('. ')+'.',steps}}
+ if(c===4){const steps=[`Harga 1 buku latihan ialah RM${u}`,`Darab dengan ${b}: ${u} × ${b} = ${v}`];
+  return{text:`1 buku latihan berharga RM${u}. Berapakah harga ${b} buku latihan yang sama?`,fields:[`Harga ${b} buku (RM)`],ans:[v],hint:`Darab RM${u} dengan ${b}.`,why:steps[1]+'.',steps}}
+ const o=[[`${a} anak kapal memerlukan ${t} botol air untuk pelayaran. Berapa botol air untuk ${b} anak kapal?`,'Air untuk 1 anak kapal',`Air untuk ${b} anak kapal`],
+ [`Kapal belayar ${t} km dalam ${a} jam. Dengan laju yang sama, berapa km kapal belayar dalam ${b} jam?`,'Jarak 1 jam (km)',`Jarak ${b} jam (km)`],
+ [`${a} syiling emas berjisim ${t} g. Berapakah jisim ${b} syiling emas yang sama?`,'Jisim 1 syiling (g)',`Jisim ${b} syiling (g)`]][c];
+ const steps=[`Cari nilai 1 unit: ${t} ÷ ${a} = ${u}`,`Darab dengan ${b}: ${u} × ${b} = ${v}`];
+ return{text:o[0],fields:[o[1],o[2]],ans:[u,v],bar:{a,b,u,t,v,pre:'',suf:[' botol',' km',' g'][c]},hint:`Bahagi ${t} dengan ${a} untuk dapat nilai 1 unit, kemudian darab dengan ${b}.`,why:steps.join('. ')+'.',steps}}
+function gen4(){const t=R(0,4);
+ if(t===0){const x=R(1,5),y=R(1,5),dx=R(1,4),dy=R(1,4),k=R(2,5);
+  return{text:`Kapal anda bermula di (${x}, ${y}) dan belayar ${dx} unit ke kanan dan ${dy} unit ke atas. Skala peta ialah 1 : ${k} km. Apakah koordinat tiba, dan berapa km jarak ke kanan yang dilayari?`,fields:['x','y','Ke kanan (km)'],ans:[x+dx,y+dy,dx*k],hint:'Ke kanan menambah x, ke atas menambah y. Jarak sebenar = unit peta × skala.',why:`Tiba di (${x+dx}, ${y+dy}). Jarak ke kanan = ${dx} × ${k} = ${dx*k} km.`}}
+ if(t===1){const k=R(2,6),q=R(2,5);
+  return{text:`Kapten Aina membahagikan syiling emas dengan anak kapal dalam nisbah 1 : ${k}. Jika Kapten mendapat ${q} syiling, berapa syiling anak kapal dan berapa jumlah semua syiling?`,fields:['Anak kapal','Jumlah'],ans:[q*k,q*k+q],hint:`Darab ${q} dengan ${k} untuk anak kapal. Kemudian tambah bahagian Kapten.`,why:`Anak kapal = ${q} × ${k} = ${q*k}. Jumlah = ${q*k} + ${q} = ${q*k+q}.`}}
+ if(t===2){const a=R(2,4),u=R(2,6),n=R(5,9),D=u*n;
+  return{text:`Kapal belayar ${a*u} km dalam ${a} jam. Harta berada ${D} km dari pelabuhan. Berapakah laju kapal (km sejam) dan berapa jam diperlukan untuk sampai?`,fields:['Laju (km sejam)','Masa (jam)'],ans:[u,n],hint:'Cari jarak dalam 1 jam dahulu. Kemudian bahagi jarak ke harta dengan laju itu.',why:`Laju = ${a*u} ÷ ${a} = ${u} km sejam. Masa = ${D} ÷ ${u} = ${n} jam.`}}
+ if(t===3){const x=R(1,9),y1=R(1,4),y2=R(5,9),k=R(2,5);
+  return{text:`Dua pulau berada di (${x}, ${y1}) dan (${x}, ${y2}) pada peta. Skala peta ialah 1 : ${k}. Berapa petak jarak menegak antara pulau, dan berapa km jarak sebenar?`,fields:['Jarak pada peta (petak)','Jarak sebenar (km)'],ans:[y2-y1,(y2-y1)*k],hint:'Tolak nilai y yang kecil daripada nilai y yang besar. Kemudian darab dengan skala.',why:`${y2} − ${y1} = ${y2-y1} petak. ${y2-y1} × ${k} = ${(y2-y1)*k} km.`}}
+ const k=R(2,5),q=R(2,4),u=R(2,5);
+ return{text:`Dalam satu peti, nisbah syiling emas kepada syiling perak ialah 1 : ${k}. Peti itu ada ${q} syiling emas. Berapa syiling perak? Jika 1 syiling perak berharga RM${u}, berapa jumlah harga syiling perak?`,fields:['Syiling perak','Jumlah harga (RM)'],ans:[q*k,q*k*u],hint:`Darab ${q} dengan ${k} untuk syiling perak. Kemudian darab dengan RM${u}.`,why:`Syiling perak = ${q} × ${k} = ${q*k}. Harga = ${q*k} × ${u} = RM${q*k*u}.`}}
+/*GEN-END*/
+/*VIS-START*/
+function trk(x,y){const a=x*S,b=y*S;return`<line class="an" style="--l:${a}" x1="${X0}" y1="${Y0}" x2="${px(x)}" y2="${Y0}"/><line class="an an2" style="--l:${b}" x1="${px(x)}" y1="${Y0}" x2="${px(x)}" y2="${py(y)}"/><text class="t b" style="fill:#e4572e" x="${X0+a/2}" y="${Y0-8}" text-anchor="middle">${x?x+' ke kanan':''}</text><text class="t b" style="fill:#e4572e" x="${px(x)+8}" y="${Y0-b/2}">${y?y+' ke atas':''}</text>`}
+function barSVG(d,s){const w=Math.min(46,500/Math.max(d.a,d.b)),x0=14,L=n=>d.pre+n+d.suf;
+ const row=(n,y,txt,f)=>[...Array(n)].map((_,i)=>`<rect x="${x0+i*(w+3)}" y="${y}" width="${w}" height="30" rx="4" fill="${f}" stroke="var(--ink)" stroke-width="2"/><text x="${x0+i*(w+3)+w/2}" y="${y+20}" text-anchor="middle" font-size="${w<34||txt.length>5?11:14}" font-weight="800" fill="#14284b">${txt}</text>`).join('');
+ const br=(n,y,txt)=>{const x2=x0+n*(w+3)-3;return`<path d="M${x0} ${y}v-6h${x2-x0}v6" fill="none" stroke="var(--ink)" stroke-width="2"/><text x="${(x0+x2)/2}" y="${y-12}" text-anchor="middle" font-size="14" font-weight="800" fill="var(--ink)">${txt}</text>`};
+ let h=br(d.a,34,L(d.t))+row(d.a,34,s>=1?L(d.u):'?','#ffd27a');
+ if(s>=2)h+=br(d.b,106,L(d.v))+row(d.b,106,L(d.u),'#9fd8f5');
+ return`<svg viewBox="0 0 560 150" style="width:100%;max-width:560px" role="img" aria-label="Model palang untuk kaedah unitari">${h}</svg>`}
+function rul(){$('#rs').innerHTML=rulSVG(rk,rn)}
+function rulSVG(k,n){const w=Math.min(55,500/n),x0=14,t='style="fill:var(--ink)" font-size="14" font-weight="800"';
+ let h=`<text ${t} x="${x0}" y="16">🗺️ Peta (petak)</text><text ${t} x="${x0}" y="92">🌍 Dunia sebenar (km)</text>`;
+ for(let i=0;i<n;i++){const cx=x0+i*(w+3)+w/2;
+  h+=`<line x1="${cx}" y1="54" x2="${cx}" y2="100" stroke="var(--mut)" stroke-width="1.5" stroke-dasharray="3 4"/><rect x="${x0+i*(w+3)}" y="24" width="${w}" height="30" rx="4" fill="#ffd27a" stroke="var(--ink)" stroke-width="2"/><text x="${cx}" y="44" text-anchor="middle" font-size="13" font-weight="800" fill="#14284b">1</text><rect x="${x0+i*(w+3)}" y="100" width="${w}" height="30" rx="4" fill="#9fd8f5" stroke="var(--ink)" stroke-width="2"/><text x="${cx}" y="120" text-anchor="middle" font-size="${String(k).length>3?10:13}" font-weight="800" fill="#14284b">${k}</text>`}
+ h+=`<text ${t} x="${x0}" y="152" font-size="15">${n} × ${k} = ${n*k} km</text>`;
+ return h}
+function rec(k,ok,first){if(!first)return;tot[k]=(tot[k]||0)+1;if(ok)cor[k]=(cor[k]||0)+1;save();dash()}
+function dash(){const el=$('#dash');if(!el)return;let T=0,C=0;
+ const rows=[['k1','7.1 Koordinat'],['k2','7.2 Nisbah'],['k3','7.3 Kadaran'],['k4','7.4 Masalah'],['kc','Cabaran']].map(([k,n])=>{const t=tot[k]||0,c=cor[k]||0;T+=t;C+=c;
+  return`<div class="br"><span>${n}</span><div class="tr"><i style="width:${t?Math.round(c*100/t):0}%"></i></div><b>${t?c+'/'+t:'-'}</b></div>`}).join('');
+ const pc=T?C/T:0,r=34,cf=2*Math.PI*r;
+ el.innerHTML=`<b>Papan kemajuan</b><div class="dw"><svg viewBox="0 0 90 90" width="90" height="90" role="img" aria-label="Ketepatan keseluruhan ${Math.round(pc*100)} peratus"><circle cx="45" cy="45" r="${r}" fill="none" stroke="var(--line)" stroke-width="10"/><circle cx="45" cy="45" r="${r}" fill="none" stroke="var(--ok)" stroke-width="10" stroke-linecap="round" stroke-dasharray="${(cf*pc).toFixed(1)} ${cf.toFixed(1)}" transform="rotate(-90 45 45)"/><text x="45" y="50" text-anchor="middle" font-size="17" font-weight="800" fill="var(--ink)">${Math.round(pc*100)}%</text></svg><div style="flex:1;min-width:220px">${rows}<small style="color:var(--mut)">Jawapan betul pada percubaan pertama.</small></div></div>`}
+/*VIS-END*/
+$('#ns').oninput=e=>{rn=+e.target.value;$('#nv').textContent=rn;rul()};
+quiz($('#q2'),gen2,null,()=>adv('k2'),(o,q,f)=>rec('k2',o,f)).next();
+
+/* Kadaran: bekalan pelayaran */
+let ex,sn;
+function newEx(){ex=u3();sn=0;drawEx()}
+function drawEx(){$('#ex').innerHTML=`<p class="q">${ex.text}</p>${ex.bar?barSVG(ex.bar,sn):''}<ol>${ex.steps.slice(0,sn).map(s=>`<li>${s}</li>`).join('')}</ol>`;$('#exn').hidden=sn>=ex.steps.length}
+$('#exn').onclick=()=>{sn++;drawEx()};$('#exr').onclick=newEx;newEx();
+quiz($('#q3'),u3,null,()=>adv('k3'),(o,q,f)=>rec('k3',o,f)).next();
+
+/* Misi akhir */
+quiz($('#q4'),gen4,null,()=>adv('k4'),(o,q,f)=>rec('k4',o,f)).next();
+
+/* Latihan: Cabaran Harta */
+let ci=0,cs=0,ct=-1,fin=0,ct0=0;
+const CG=[()=>gen1(1),gen2,u3,gen4];
+const cq=quiz($('#qc'),()=>{if(fin){fin=0;ci=0;cs=0}
+ if(ci>=10){fin=1;sfx('win');const tb=Math.min(3,Math.floor((act-ct0)/120)),b=(cs>=8?3:cs>=5?2:1)+tb;award(b,'Cabaran Harta');
+  return{end:`<p class="q">Cabaran tamat! Skor anda ${cs} / 10.</p><p>Anda mendapat ${b} bintang ⭐${tb?` (termasuk ${tb} bonus masa)`:''}. ${cs>=8?'Hebat sekali!':cs>=5?'Bagus. Cuba lagi untuk skor yang lebih tinggi.':'Teruskan berlatih, anda pasti bertambah baik.'}</p><button class="go" data-a="nx">Main lagi</button>`}}
+ ci++;if(ci===1)ct0=act;const q=CG[ct<0?R(0,3):ct]();q.text=`<small style="color:var(--mut)">Soalan ${ci} daripada 10</small><br>`+q.text;q.nx=ci<10?'Soalan seterusnya':'Lihat skor';return q},null,()=>cs++,(o,q,f)=>rec('kc',o,f));
+$('#ct').onclick=e=>{const b=e.target.closest('button');if(!b)return;ct=+b.dataset.c;[...$('#ct').children].forEach(x=>x.setAttribute('aria-pressed',x===b));ci=0;cs=0;fin=0;cq.next()};
+cq.next();
+
+/* Kedai */
+const ITEMS=[
+{id:'av0',t:'av',n:'Kompas',e:'🧭',c:0},{id:'av1',t:'av',n:'Burung kakak tua',e:'🦜',c:3},{id:'av2',t:'av',n:'Sotong kurita',e:'🐙',c:3},{id:'av3',t:'av',n:'Paus',e:'🐳',c:4},{id:'av4',t:'av',n:'Jerung',e:'🦈',c:5},{id:'av5',t:'av',n:'Bendera lanun',e:'🏴‍☠️',c:6},
+{id:'th0',t:'th',n:'Laut biasa',e:'🌊',c:0},{id:'th1',t:'th',n:'Laut tropika',e:'🏝️',c:4},{id:'th2',t:'th',n:'Laut senja',e:'🌅',c:5},{id:'th3',t:'th',n:'Laut malam',e:'🌙',c:6},
+{id:'tt0',t:'tt',n:'Murid Tahun 4',e:'🎒',c:0},{id:'tt1',t:'tt',n:'Kapten Muda',e:'⚓',c:2},{id:'tt2',t:'tt',n:'Juru Peta',e:'🗺️',c:4},{id:'tt3',t:'tt',n:'Pakar Harta',e:'💰',c:8},
+{id:'st1',t:'st',n:'Kulit siput',e:'🐚',c:1},{id:'st2',t:'st',n:'Ketam',e:'🦀',c:1},{id:'st3',t:'st',n:'Ikan tropika',e:'🐠',c:1},{id:'st4',t:'st',n:'Syiling emas',e:'🪙',c:2},{id:'st5',t:'st',n:'Permata',e:'💎',c:3},{id:'st6',t:'st',n:'Kunci emas',e:'🗝️',c:3},{id:'st7',t:'st',n:'Mahkota',e:'👑',c:5},{id:'st8',t:'st',n:'Puteri duyung',e:'🧜‍♀️',c:5}];
+const GN={av:'Avatar',th:'Tema laut',tt:'Gelaran',st:'Stiker koleksi'};
+function shop(){const box=$('#shopbox');if(!box)return;
+ const al=ITEMS.filter(i=>i.t==='st'&&owned.includes(i.id)).map(i=>i.e).join(' ');
+ $('#bal').innerHTML=`Baki bintang: ⭐ ${bal()}<br><span style="font-size:26px">${al||'Koleksi stiker anda masih kosong.'}</span>`;
+ box.innerHTML=Object.keys(GN).map(t=>`<h3>${GN[t]}</h3><div class="shop">`+ITEMS.filter(i=>i.t===t).map(i=>{const has=owned.includes(i.id),on=eq[i.t]===i.id;
+  const btn=has?(t==='st'?'<small>Dimiliki ✓</small>':on?'<small>Sedang dipakai ✓</small>':`<button class="ghost" data-a="use" data-id="${i.id}">Pakai</button>`):`<button class="go" data-a="buy" data-id="${i.id}"${bal()<i.c?' disabled':''}>Beli ⭐ ${i.c}</button>`;
+  return`<div class="it"><div class="e">${i.e}</div><b>${i.n}</b>${btn}</div>`}).join('')+'</div>').join('')}
+$('#shopbox').onclick=e=>{const b=e.target.closest('button');if(!b)return;const i=ITEMS.find(x=>x.id===b.dataset.id);if(!i)return;
+ if(b.dataset.a==='buy'&&bal()>=i.c&&!owned.includes(i.id)){spent+=i.c;owned.push(i.id);sfx('buy');say('Pembelian yang cantik! Anda boleh memakainya sekarang.','cheer');if(i.t!=='st')eq[i.t]=i.id}
+ else if(b.dataset.a==='use'&&owned.includes(i.id)){eq[i.t]=i.id;sfx('click')}
+ save();paint()};
+function paint(){const f=id=>ITEMS.find(i=>i.id===id);$('#st').textContent=bal();$('#who').textContent=f(eq.av).e+' '+f(eq.tt).n;document.body.dataset.th=eq.th;shop();dash();tray();drawDeco()}
+
+/*AUDIO-START*/
+let AC=null,mg=null,sg=null,mst=null,NB=null,mt=null,gt=null,amb=null,mbar=0,mnx=0;
+function ac(){if(!AC){const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;
+  AC=new C();const cp=AC.createDynamicsCompressor();cp.threshold.value=-14;cp.ratio.value=6;cp.knee.value=20;mst=AC.createGain();mst.gain.value=vol/100*1.7;mg=AC.createGain();sg=AC.createGain();mg.gain.value=.0001;sg.gain.value=1.3;mg.connect(cp);sg.connect(cp);cp.connect(mst);mst.connect(AC.destination)}
+ if(AC.state==='suspended')AC.resume();return AC}
+function nb(){if(!NB){NB=AC.createBuffer(1,AC.sampleRate*3,AC.sampleRate);const d=NB.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1}return NB}
+function tone(f,t,d,type,v,dest,f2){const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.setValueAtTime(f,t);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+d);
+ g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(dest);o.start(t);o.stop(t+d+.05)}
+function noise(t,d,v,dest,ft,f0,f1,q){const s=AC.createBufferSource(),f=AC.createBiquadFilter(),g=AC.createGain();s.buffer=nb();f.type=ft;f.frequency.setValueAtTime(f0,t);if(f1)f.frequency.exponentialRampToValueAtTime(f1,t+d);if(q)f.Q.value=q;
+ g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);s.connect(f);f.connect(g);g.connect(dest);s.start(t,Math.random());s.stop(t+d+.05)}
+function boom(t,v,deep){noise(t,deep?.9:.65,.9*v,sg,'lowpass',deep?700:1100,50);tone(deep?90:130,t,.5,'sine',.9*v,sg,38);noise(t,.07,.5*v,sg,'highpass',2500,4000)}
+const SX={
+ click:t=>tone(880,t,.06,'square',.04,sg,1200),
+ place:t=>{tone(180,t,.14,'triangle',.5,sg,90);noise(t,.07,.35,sg,'bandpass',500,300,2);tone(260,t+.09,.1,'triangle',.3,sg,130)},
+ start:t=>{tone(196,t,.5,'sawtooth',.1,sg,190);tone(294,t+.18,.6,'sawtooth',.1,sg,290)},
+ fire:t=>{boom(t,1);tone(1400,t+.08,.55,'sine',.07,sg,350)},
+ enemy:t=>{tone(98,t,.15,'sawtooth',.08,sg,92);tone(82,t+.14,.22,'sawtooth',.08,sg,70);boom(t+.25,.9,1);tone(900,t+.33,.4,'sine',.05,sg,300)},
+ splash:t=>{noise(t,.55,.5,sg,'bandpass',1200,300,.8);[0,.08,.15].forEach(d=>tone(500+Math.random()*700,t+d,.07,'sine',.06,sg,200))},
+ hit:t=>{noise(t,.7,.8,sg,'lowpass',2500,80);tone(75,t,.5,'sine',.8,sg,35);[.12,.2,.3].forEach(d=>noise(t+d,.08,.3,sg,'highpass',3000,5000))},
+ sunk:t=>{SX.hit(t);tone(420,t+.25,1.2,'triangle',.25,sg,50);for(let i=0;i<8;i++)tone(400+Math.random()*900,t+.4+i*.13,.08,'sine',.12,sg,2000);noise(t+.3,1.2,.25,sg,'lowpass',500,80)},
+ win:t=>{[523,659,784,1046,1318].forEach((f,i)=>tone(f,t+i*.12,.35,'triangle',.25,sg));[523,659,784].forEach(f=>tone(f,t+.7,.8,'triangle',.15,sg))},
+ lose:t=>{[392,330,262,196].forEach((f,i)=>tone(f,t+i*.22,.35,'triangle',.22,sg))},
+ ok:t=>{tone(660,t,.12,'triangle',.3,sg);tone(880,t+.1,.18,'triangle',.3,sg)},
+ star:t=>{[1047,1319,1568,2093].forEach((f,i)=>tone(f,t+i*.07,.22,'sine',.22,sg))},
+ no:t=>tone(220,t,.28,'triangle',.3,sg,150),
+ buy:t=>{tone(988,t,.09,'square',.1,sg);tone(1319,t+.09,.25,'square',.1,sg)},
+ radar:t=>{tone(1200,t,.45,'sine',.2,sg,900);tone(1800,t+.18,.5,'sine',.1,sg,1200)},combo:t=>{[784,988,1175,1568].forEach((f,i)=>tone(f,t+i*.06,.18,'square',.07,sg))}};
+function setVol(){if(mst)mst.gain.setTargetAtTime(vol/100*1.7,AC.currentTime,.05)}
+function sfx(n,dl){if(!sOn||!ac()||!SX[n])return;SX[n](AC.currentTime+(dl||0))}
+/* Muzik latar: suasana tepi pantai (ombak, burung camar, ukulele dan siulan) */
+const EE=.38,BAR=6*EE,NT=x=>392*Math.pow(2,x/12);
+const CH=[{b:98,b5:146.83,t:[246.94,293.66,392]},{b:130.81,b5:196,t:[261.63,329.63,392]},{b:98,b5:146.83,t:[246.94,293.66,392]},{b:146.83,b5:110,t:[293.66,369.99,440]},
+ {b:164.81,b5:123.47,t:[246.94,329.63,392]},{b:130.81,b5:196,t:[261.63,329.63,392]},{b:146.83,b5:110,t:[293.66,369.99,440]},{b:98,b5:146.83,t:[246.94,293.66,392]}];
+const ML=[[[0,4,2],[2,2,1],[3,0,3]],[[0,9,2],[2,7,1],[3,4,3]],[[0,0,1],[1,4,1],[2,7,1],[3,4,3]],[[0,2,3],[3,0,1],[4,2,2]],[[0,9,2],[2,7,1],[3,4,3]],[[0,12,2],[2,9,1],[3,7,3]],[[0,2,2],[2,4,1],[3,2,3]],[[0,0,6]]];
+function pluck(f,t,v){const o=AC.createOscillator(),g=AC.createGain(),fl=AC.createBiquadFilter();o.type='triangle';o.frequency.value=f;fl.type='lowpass';fl.frequency.value=2200;
+ g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.006);g.gain.exponentialRampToValueAtTime(.0001,t+.55);o.connect(fl);fl.connect(g);g.connect(mg);o.start(t);o.stop(t+.6)}
+function whistle(f,t,d,v){const o=AC.createOscillator(),g=AC.createGain(),l=AC.createOscillator(),lg=AC.createGain();o.type='sine';o.frequency.value=f;l.frequency.value=5;lg.gain.value=f*.006;l.connect(lg);lg.connect(o.frequency);
+ g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.05);g.gain.setValueAtTime(v,t+d-.12);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(mg);o.start(t);l.start(t);o.stop(t+d+.05);l.stop(t+d+.05)}
+function pad(f,t,d){const o=AC.createOscillator(),g=AC.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.045,t+.6);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(mg);o.start(t);o.stop(t+d+.05)}
+function playBar(i,t){const c=CH[i];
+ [[0,c.b,.25],[1,c.t[0],.14],[2,c.t[1],.14],[3,c.b5,.2],[4,c.t[2],.13],[5,c.t[1],.13]].forEach(([k,f,v])=>pluck(f,t+k*EE,v));
+ ML[i].forEach(([k,x,len])=>whistle(NT(x),t+k*EE,len*EE,.16));c.t.forEach(f=>pad(f,t,BAR+.5))}
+function sched(){while(mnx<AC.currentTime+.6){playBar(mbar%8,mnx);mnx+=BAR;mbar++}}
+function startAmb(){const s=AC.createBufferSource(),f=AC.createBiquadFilter(),g=AC.createGain(),l=AC.createOscillator(),lg=AC.createGain();
+ s.buffer=nb();s.loop=true;f.type='lowpass';f.frequency.value=500;g.gain.value=.08;l.frequency.value=.13;lg.gain.value=.06;l.connect(lg);lg.connect(g.gain);s.connect(f);f.connect(g);g.connect(mg);s.start();l.start();amb=[s,l]}
+function gull(){if(!AC||!mt)return;let t=AC.currentTime+.05;const n=R(2,3),pan=AC.createStereoPanner?AC.createStereoPanner():null;if(pan){pan.pan.value=Math.random()*1.6-.8;pan.connect(mg)}
+ for(let i=0;i<n;i++){const o=AC.createOscillator(),f=AC.createBiquadFilter(),g=AC.createGain(),l=AC.createOscillator(),lg=AC.createGain();
+  o.type='sawtooth';f.type='bandpass';f.frequency.value=2000;f.Q.value=3;o.frequency.setValueAtTime(1300,t);o.frequency.linearRampToValueAtTime(2300,t+.12);o.frequency.linearRampToValueAtTime(1500,t+.38);
+  l.frequency.value=28;lg.gain.value=70;l.connect(lg);lg.connect(o.frequency);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.6,t+.04);g.gain.exponentialRampToValueAtTime(.0001,t+.42);
+  o.connect(f);f.connect(g);g.connect(pan||mg);o.start(t);l.start(t);o.stop(t+.45);l.stop(t+.45);t+=.5+Math.random()*.15}}
+function gullLoop(){clearTimeout(gt);gt=setTimeout(()=>{gull();gullLoop()},R(6000,13000))}
+function mStart(){if(!mOn||mt||!ac())return;const n=AC.currentTime;mg.gain.cancelScheduledValues(n);mg.gain.setValueAtTime(.0001,n);mg.gain.linearRampToValueAtTime(.7,n+1.5);
+ startAmb();mnx=n+.15;mbar=0;mt=setInterval(sched,250);sched();gullLoop()}
+function mStop(){clearInterval(mt);mt=null;clearTimeout(gt);if(AC){mg.gain.cancelScheduledValues(AC.currentTime);mg.gain.setTargetAtTime(.0001,AC.currentTime,.15);const a=amb;amb=null;setTimeout(()=>{a&&a.forEach(x=>{try{x.stop()}catch(e){}})},700)}}
+/*AUDIO-END*/
+function paintAudio(){$('#vl').value=vol;$('#bg').textContent=gOn?'🕊️ Pemandu':'🚫 Pemandu';$('#bg').setAttribute('aria-pressed',gOn);$('#mas').style.display=gOn?'':'none';$('#bm').textContent=mOn?'🎵 Muzik':'🔇 Muzik';$('#bm').setAttribute('aria-pressed',mOn);$('#bs').textContent=sOn?'🔊 Bunyi':'🔇 Bunyi';$('#bs').setAttribute('aria-pressed',sOn)}
+$('#bg').onclick=()=>{gOn=!gOn;save();paintAudio();if(gOn)say('Saya kembali! Ketik saya bila-bila masa untuk mendapatkan petunjuk.','happy')};
+$('#vl').oninput=e=>{vol=+e.target.value;save();setVol()};
+$('#vl').onchange=()=>sfx('ok');
+$('#bm').onclick=()=>{mOn=!mOn;save();paintAudio();if(mOn)mStart();else mStop()};
+$('#bs').onclick=()=>{sOn=!sOn;save();paintAudio();sfx('click')};
+document.addEventListener('pointerdown',()=>{if(mOn)mStart()});
+document.addEventListener('keydown',()=>{if(mOn)mStart()});
+document.addEventListener('visibilitychange',()=>{if(!AC)return;if(document.hidden)AC.suspend();else AC.resume()});
+
+/* Kapten Camar: maskot pemandu */
+/*MAS-START*/
+function mascotSVG(st){const eye=x=>`<circle cx="${x}" cy="58" r="7" fill="#fff" stroke="#3a4a66" stroke-width="2"/><circle class="pp" cx="${x+1}" cy="59" r="3.4" fill="#14284b"/><circle cx="${x+2.2}" cy="57.6" r="1.1" fill="#fff"/>`;
+ return`<svg class="mas" viewBox="0 0 120 150" data-s="${st||'idle'}" role="img" aria-label="Kapten Camar, burung camar maskot"><g class="bob">
+<g fill="#ff9f1c" stroke="#b36b00" stroke-width="2" stroke-linejoin="round"><path d="M40 134l-10 9h24l-5-9z"/><path d="M80 134l10 9H66l5-9z"/></g>
+<g class="wl" style="transform-origin:34px 84px"><ellipse cx="25" cy="98" rx="12" ry="27" fill="#cfd9e8" stroke="#6b7c99" stroke-width="2.5" transform="rotate(12 25 98)"/></g>
+<g class="wr" style="transform-origin:86px 84px"><ellipse cx="95" cy="98" rx="12" ry="27" fill="#cfd9e8" stroke="#6b7c99" stroke-width="2.5" transform="rotate(-12 95 98)"/></g>
+<ellipse cx="60" cy="98" rx="32" ry="38" fill="#fff" stroke="#6b7c99" stroke-width="2.5"/><path d="M42 102q18 22 36 0q-4 20-18 22q-14-2-18-22z" fill="#eaf1fb"/>
+<path d="M38 78q22 12 44 0l2 10q-24 14-48 0z" fill="#e4572e" stroke="#9b2f12" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="60" cy="50" r="30" fill="#fff" stroke="#6b7c99" stroke-width="2.5"/>
+<path d="M30 40q0-26 30-26t30 26q-30-8-60 0z" fill="#1d2b53" stroke="#0e1733" stroke-width="2.5" stroke-linejoin="round"/>
+<path d="M27 41q33-10 66 0q-2 8-10 8q-23-6-46 0q-8 0-10-8z" fill="#2b3f7a" stroke="#0e1733" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="60" cy="28" r="7" fill="#f2c230" stroke="#9a6f00" stroke-width="2"/><path d="M60 23v10M55 26h10" stroke="#9a6f00" stroke-width="2" stroke-linecap="round"/>
+<g class="eyes"><g class="eo">${eye(48)}${eye(72)}</g><g class="eh"><path d="M41 60q7-9 14 0M65 60q7-9 14 0" stroke="#14284b" stroke-width="3.2" fill="none" stroke-linecap="round"/></g></g>
+<circle cx="38" cy="68" r="4.5" fill="#ffb3b3" opacity=".7"/><circle cx="82" cy="68" r="4.5" fill="#ffb3b3" opacity=".7"/>
+<g class="br"><path d="M41 49l13 5M79 49l-13 5" stroke="#14284b" stroke-width="3" stroke-linecap="round"/></g>
+<path d="M50 66q10-6 20 0q-3 13-10 13q-7 0-10-13z" fill="#ffb02e" stroke="#b36b00" stroke-width="2.2" stroke-linejoin="round"/><circle cx="64" cy="71" r="1.6" fill="#d62828"/>
+<g class="mo"><path d="M53 71q7 9 14 0q-2 8-7 8t-7-8z" fill="#8a2b12"/></g>
+<g class="tear"><path d="M44 66q-3 6 0 8q3-2 0-8z" fill="#7fd0f0" stroke="#3a8fbf" stroke-width="1"/></g>
+</g></svg>`}
+const MT={utama:['Ikut jejak merah dan ketik misi yang bernyala. Saya akan menemani anda!','Seret jarum kompas untuk meneroka arah. Jarumnya menunjuk ke misi seterusnya.','Kumpul bintang ⭐ lalu belanja di Kedai untuk menghias peta anda.'],
+koordinat:['Mulakan dengan pelajaran di atas. Kemudian cuba Terokai dan Perang kapal. Ingat: ke kanan dahulu, kemudian ke atas!','Dalam Perang kapal, taip x dahulu, kemudian y. Titik kapal ada antara 1 dan 9.','Titik dengan x = 0 berada pada paksi-y, dan titik dengan y = 0 berada pada paksi-x.'],
+nisbah:['Skala 1 : k bermaksud 1 petak pada peta mewakili k km. Cuba gerakkan peluncur pembaris skala!','Untuk nisbah 1 : k, darabkan bahagian pertama dengan k untuk mendapat bahagian kedua.','Baca nisbah mengikut susunan: benda yang disebut dahulu ialah nombor pertama.'],
+kadaran:['Kaedah unitari: bahagi untuk mencari 1 unit, kemudian darab. Tekan Tunjuk langkah untuk melihat rajah palang!','Selepas mendapat jawapan, semak: bilangan lebih banyak patut memberi nilai lebih besar.','Tekan Contoh lain untuk melihat contoh yang berbeza.'],
+masalah:['Ikut empat langkah: baca, rancang, selesaikan, semak. Garis bawah nombor penting!','Lukis rajah atau grid jika soalan menyebut kedudukan atau jarak.','Jangan lupa tulis unit seperti RM, km atau g.'],
+latihan:['Pilih satu topik atau Campuran. Anda mendapat bintang tambahan mengikut skor dan masa!','Soalan yang lebih lama memberi lebih banyak bintang, jadi fikir dengan teliti.'],
+kedai:['Belanjakan bintang anda untuk avatar, tema laut, gelaran dan stiker. Kemudian tampal stiker pada papan hias!'],
+rujukan:['Senarai ini menunjukkan sumber yang membantu membina laman ini.']};
+const PR=['Hebat!','Bagus sekali!','Tepat sekali!','Pandai!','Cemerlang!'],seenT={};let mtm=null,mmm=null;
+function setMood(m){const e=document.querySelector('#mchar svg');if(e)e.dataset.s=m}
+function say(msg,mood){if(!gOn||!msg)return;const b=$('#mbub');$('#mtxt').innerHTML=msg;b.hidden=false;setMood(mood||'idle');
+ clearTimeout(mmm);if(mood==='cheer'||mood==='sad')mmm=setTimeout(()=>setMood('idle'),2800);
+ clearTimeout(mtm);mtm=setTimeout(()=>{b.hidden=true;setMood('idle')},Math.min(16000,5000+msg.length*60))}
+function mTab(id){if(!seenT[id]&&MT[id]){seenT[id]=1;say(MT[id][0],'happy')}}
+function mTip(){if(!gOn)return;const box={koordinat:'#q1',nisbah:'#q2',kadaran:'#q3',masalah:'#q4',latihan:'#qc'}[curTab],q=box&&LQ[box];
+ if(q&&!q.done&&q.hint&&!(curTab==='koordinat'&&mode!=='read')){say('💡 Petunjuk: '+q.hint,'think');return}
+ const a=MT[curTab]||MT.utama;mti=(mti+1)%a.length;say(a[mti],'happy')}
+function mReact(ok,q,first){if(ok)say(`${PR[R(0,4)]} ${first?'Anda betul pada percubaan pertama.':'Anda berjaya juga. Cuba lagi untuk betul pada percubaan pertama!'}`,first?'cheer':'happy');
+ else{const w=q.w||1;say(w>=3?'Tidak mengapa! Lihat cara penyelesaian itu. Saya akan membantu anda faham.':w===2?'Hampir! Baca petunjuk dan cuba lagi.':'Belum tepat. Jangan risau. Semak semula atau ketik saya untuk petunjuk.','sad')}}
+function mBattle(hit,sunk,x,y){say(sunk?'Satu kapal musuh tenggelam! Bagus, Kapten!':hit?`Kena di (${x}, ${y})! Kapal biasanya memanjang. Cuba titik di sebelahnya, seperti (${x+1}, ${y}) atau (${x}, ${y+1}).`:`Tersasar di (${x}, ${y}). Fikirkan koordinat lain.`,sunk?'cheer':hit?'happy':'think')}
+function mEnemy(hit,sunk,x,y){say(sunk?'Aduh, satu kapal kita tenggelam!':hit?`Musuh mengena kapal kita di (${x}, ${y}).`:`Musuh tersasar di (${x}, ${y}). Giliran kita!`,hit?'sad':'happy')}
+function speak(t){if(!('speechSynthesis' in window))return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t.replace(/<[^>]+>/g,'')),v=speechSynthesis.getVoices().find(x=>/^(ms|id)/i.test(x.lang));if(v){u.voice=v;u.lang=v.lang}else u.lang='ms-MY';u.rate=.95;speechSynthesis.speak(u)}
+/*MAS-END*/
+$('#mchar').innerHTML=mascotSVG('idle');
+$('#mchar').onclick=mTip;$('#mtip').onclick=mTip;
+$('#msay').onclick=()=>speak($('#mtxt').textContent);if(!('speechSynthesis' in window))$('#msay').hidden=true;
+$('#mhide').onclick=()=>{$('#mbub').hidden=true;setMood('idle');'speechSynthesis' in window&&speechSynthesis.cancel()};
+setInterval(()=>{if(!document.hidden&&!nudged&&ACT.includes(curTab)&&Date.now()-lastI>45000){nudged=1;say('Perlukan bantuan? Ketik saya untuk mendapatkan petunjuk.','think')}},5000);
+setTimeout(()=>say('Selamat datang, Kapten! Saya Kapten Camar, burung camar yang menemani Kapten Aina. Ketik saya bila-bila masa untuk mendapatkan petunjuk.','happy'),900);
+
+/* Pelajaran Kapten Camar */
+/*LES-START*/
+function gridMini(o){const n=o.n||6,st=40,x0=34,y0=n*st+22,W=x0+n*st+26,H=y0+34,tx='font-size="12" font-weight="700" fill="var(--ink)"';let h='';
+ for(let i=0;i<=n;i++)h+=`<line x1="${x0+i*st}" y1="${y0}" x2="${x0+i*st}" y2="${y0-n*st}" stroke="var(--line)"/><line x1="${x0}" y1="${y0-i*st}" x2="${x0+n*st}" y2="${y0-i*st}" stroke="var(--line)"/><text ${tx} x="${x0+i*st}" y="${y0+16}" text-anchor="middle">${i}</text>`+(i?`<text ${tx} x="${x0-8}" y="${y0-i*st+4}" text-anchor="end">${i}</text>`:'');
+ h+=`<line x1="${x0}" y1="${y0}" x2="${x0+n*st+14}" y2="${y0}" stroke="var(--ink)" stroke-width="2.5"/><line x1="${x0}" y1="${y0}" x2="${x0}" y2="${y0-n*st-14}" stroke="var(--ink)" stroke-width="2.5"/>`;
+ if(o.ax)h+=`<text x="${x0+n*st/2}" y="${y0+32}" text-anchor="middle" font-size="14" font-weight="800" fill="#d94a2b">Paksi-x (mendatar) →</text><text transform="translate(10 ${y0-n*st/2}) rotate(-90)" text-anchor="middle" font-size="14" font-weight="800" fill="#0b7f70">Paksi-y (menegak) →</text>`;
+ if(o.O)h+=`<text x="${x0-8}" y="${y0+16}" text-anchor="end" font-size="13" font-weight="800" fill="var(--ink)">O</text>`;
+ (o.path||[]).forEach(([x,y])=>{h+=`<polyline points="${x0},${y0} ${x0+x*st},${y0} ${x0+x*st},${y0-y*st}" fill="none" stroke="#e4572e" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><text x="${x0+x*st/2}" y="${y0-8}" text-anchor="middle" font-size="12" font-weight="800" fill="#e4572e">${x} ke kanan</text><text x="${x0+x*st+8}" y="${y0-y*st/2}" font-size="12" font-weight="800" fill="#e4572e">${y} ke atas</text>`});
+ if(o.route)h+=`<polyline points="${o.route.map(([x,y])=>`${x0+x*st},${y0-y*st}`).join(' ')}" fill="none" stroke="#e4572e" stroke-width="4" stroke-dasharray="8 6" stroke-linecap="round" stroke-linejoin="round"/>`;
+ (o.pts||[]).forEach(([x,y,e,lab])=>{h+=`<text x="${x0+x*st}" y="${y0-y*st+9}" text-anchor="middle" font-size="26">${e||'📍'}</text>`+(lab?`<text x="${x0+x*st+16}" y="${y0-y*st-12}" font-size="13" font-weight="800" fill="var(--ink)">${lab}</text>`:'')});
+ return`<svg viewBox="0 0 ${W} ${H}" style="width:100%;max-width:${W}px" role="img" aria-label="${o.al||'Grid koordinat'}">${h}</svg>`}
+const dotsHTML=k=>'<div class="vis" style="justify-content:center"><i class="d a"></i><b>:</b>'+(k<=10?'<i class="d w"></i>'.repeat(k):'<span class="dots">'+'<i class="d w m"></i>'.repeat(100)+'</span>')+'</div>';
+const tbl=(a,b,rows)=>`<table><tr><th>${a}</th><th>${b}</th></tr>${rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('')}</table>`;
+const LES={
+k:[
+{t:'Apa itu koordinat?',x:'Koordinat ialah “alamat” bagi sesuatu titik pada grid. Seperti alamat rumah, ia memberitahu kita di mana sesuatu terletak. Kapal ⛵ ini berada di titik (3, 2).',v:()=>gridMini({pts:[[3,2,'⛵','(3, 2)']],O:1}),ch:['Apakah fungsi koordinat?',['Menunjukkan kedudukan titik','Mengira umur','Mewarna gambar'],0,'Ingat: koordinat ialah alamat bagi sebuah titik.','Koordinat menunjukkan kedudukan sesuatu titik.']},
+{t:'Paksi-x, paksi-y dan asalan',x:'Grid mempunyai dua garis utama. <b>Paksi-x</b> ialah garis mendatar (ke kanan). <b>Paksi-y</b> ialah garis menegak (ke atas). Tempat kedua-dua garis bertemu ialah <b>asalan O</b>, iaitu titik (0, 0).',v:()=>gridMini({ax:1,O:1}),ch:['Garis yang menegak ke atas dipanggil ...',['Paksi-y','Paksi-x','Asalan'],0,'Menegak bermaksud ke atas.','Garis menegak ke atas ialah paksi-y.']},
+{t:'Cara menulis koordinat',x:'Koordinat ditulis (x, y). Mulakan di O. <b>Jalan ke kanan dahulu</b> sebanyak x petak, kemudian <b>naik ke atas</b> sebanyak y petak. Petua: jalan dahulu ke pintu, baru naik tangga. Untuk 🏝️ di sini, kita jalan 4 ke kanan dan naik 3 ke atas, jadi koordinatnya (4, 3).',v:()=>gridMini({path:[[4,3]],pts:[[4,3,'🏝️','(4, 3)']],O:1}),ch:['Sebuah kapal berada 2 petak ke kanan dan 5 petak ke atas. Apakah koordinatnya?',['(2, 5)','(5, 2)','(2, 2)'],0,'Ke kanan dahulu (x), kemudian ke atas (y).','Ke kanan 2 dan ke atas 5, jadi koordinatnya (2, 5).']},
+{t:'Susunan nombor penting',x:'Titik (2, 5) dan titik (5, 2) ialah dua titik yang berbeza. Nombor pertama sentiasa x (ke kanan) dan nombor kedua sentiasa y (ke atas).',v:()=>gridMini({pts:[[2,5,'🐚','(2, 5)'],[5,2,'🦀','(5, 2)']],O:1}),ch:['Titik (6, 1) berada ...',['6 petak ke kanan dan 1 petak ke atas','1 petak ke kanan dan 6 petak ke atas','6 petak ke atas sahaja'],0,'Nombor pertama ialah x, iaitu ke kanan.','Nombor pertama 6 ialah ke kanan, nombor kedua 1 ialah ke atas.']},
+{t:'Titik pada paksi',x:'Jika x = 0, titik berada pada <b>paksi-y</b>. Jika y = 0, titik berada pada <b>paksi-x</b>. Jika kedua-duanya 0, itulah <b>asalan</b>.',v:()=>gridMini({pts:[[0,4,'💎','(0, 4)'],[5,0,'🪙','(5, 0)']],O:1}),ch:['Titik (0, 3) berada pada ...',['Paksi-y','Paksi-x','Asalan'],0,'x = 0 bermakna kita tidak bergerak ke kanan.','Kerana x = 0, titik itu berada pada paksi-y.']},
+{t:'Bersedia untuk Perang kapal!',x:'Dalam permainan, anda menembak dengan menaip koordinat (x, y). Contohnya, taip x = 4 dan y = 6 untuk menembak titik (4, 6). Ingat: ke kanan dahulu, kemudian ke atas. Semoga berjaya, Kapten!',v:()=>gridMini({path:[[4,6]],pts:[[4,6,'💥','(4, 6)']],O:1})}],
+n:[
+{t:'Membandingkan dua kuantiti',x:'Nisbah digunakan untuk membandingkan dua kuantiti. Jika 1 cawan sirap dicampur dengan 3 cawan air, nisbah sirap kepada air ialah <b>1 : 3</b>, dibaca “satu berbanding tiga”. Bulatan kuning ialah sirap dan bulatan biru ialah air.',v:()=>dotsHTML(3),ch:['1 cawan sirap dan 4 cawan air. Nisbah sirap kepada air ialah ...',['1 : 4','4 : 1','1 : 5'],0,'Sirap disebut dahulu, jadi nombor pertama ialah 1.','Sirap 1 dan air 4, jadi nisbahnya 1 : 4.']},
+{t:'Apa maksud setiap nombor?',x:'Dalam nisbah 1 : 5, nombor pertama mewakili benda yang disebut dahulu dan nombor kedua mewakili benda yang disebut kemudian. Jadi untuk setiap 1 sudu garam, ada 5 sudu air.',v:()=>dotsHTML(5),ch:['Nisbah garam kepada air ialah 1 : 5. Berapa sudu air bagi 1 sudu garam?',['5','1','6'],0,'Nombor kedua mewakili air.','Nombor kedua ialah 5, jadi ada 5 sudu air.']},
+{t:'Menggandakan nisbah',x:'Jika nisbah ialah 1 : 3 dan ada 2 cawan sirap, air ialah 2 × 3 = 6 cawan. Untuk 5 cawan sirap, air ialah 5 × 3 = 15 cawan. Darabkan bilangan bahagian pertama dengan nombor kedua.',v:()=>tbl('Sirap (cawan)','Air (cawan)',[[1,3],[2,6],[3,9],[5,15]]),ch:['Nisbah 1 : 4. Jika bahagian pertama ialah 3, bahagian kedua ialah ...',['12','7','4'],0,'Darabkan 3 dengan 4.','3 × 4 = 12.']},
+{t:'Nisbah 1 : 10, 1 : 100 dan 1 : 1000',x:'Nisbah juga boleh besar. Dalam 1 : 100, setiap 1 bahagian pertama ada 100 bahagian kedua. Dalam 1 : 1000, ada 1000. Caranya sama: darabkan dengan nombor kedua.',v:()=>dotsHTML(100),ch:['Nisbah 1 : 100. Jika bahagian pertama ialah 4, bahagian kedua ialah ...',['400','104','40'],0,'Darabkan 4 dengan 100.','4 × 100 = 400.']},
+{t:'Skala peta',x:'Peta menggunakan nisbah. Skala 1 : 3 bermaksud 1 petak pada peta mewakili 3 km di dunia sebenar. Jadi 4 petak mewakili 4 × 3 = 12 km. Inilah cara anda mengukur jarak ke harta karun.',v:()=>`<svg viewBox="0 0 560 160" style="width:100%;max-width:560px" role="img" aria-label="Skala peta 1 : 3">${rulSVG(3,4)}</svg>`,ch:['Skala 1 : 5. Jarak pada peta ialah 3 petak. Jarak sebenar ialah ...',['15 km','8 km','3 km'],0,'Darabkan 3 dengan 5.','3 × 5 = 15 km.']}],
+d:[
+{t:'Apa itu kadaran?',x:'Kadaran ialah hubungan yang sama antara dua kuantiti. Jika 1 buku berharga RM3, maka 2 buku RM6, 3 buku RM9 dan 4 buku RM12. Setiap kali bilangan buku bertambah, harga bertambah dengan jumlah yang sama.',v:()=>tbl('Buku','Harga',[[1,'RM3'],[2,'RM6'],[3,'RM9'],[4,'RM12']]),ch:['Jika 1 pen berharga RM2, 4 pen berharga ...',['RM8','RM6','RM2'],0,'Darabkan 2 dengan 4.','4 × 2 = RM8.']},
+{t:'Kaedah unitari, langkah 1',x:'Kaedah unitari bermaksud mencari nilai bagi <b>1 unit</b> dahulu. Contoh: 4 pensel berharga RM12. Untuk mencari harga 1 pensel, bahagikan: 12 ÷ 4 = RM3. Rajah menunjukkan RM12 dibahagi sama rata kepada 4 kotak.',v:()=>barSVG({a:4,b:7,u:3,t:12,v:21,pre:'RM',suf:''},1),ch:['6 buku berharga RM18. Harga 1 buku ialah ...',['RM3','RM12','RM24'],0,'Bahagikan 18 dengan 6.','18 ÷ 6 = RM3.']},
+{t:'Kaedah unitari, langkah 2',x:'Selepas mendapat nilai 1 unit, darabkan dengan bilangan yang diminta. Harga 1 pensel ialah RM3. Maka harga 7 pensel ialah 3 × 7 = RM21.',v:()=>barSVG({a:4,b:7,u:3,t:12,v:21,pre:'RM',suf:''},2),ch:['1 buku berharga RM3. Harga 5 buku ialah ...',['RM15','RM8','RM35'],0,'Darabkan 3 dengan 5.','3 × 5 = RM15.']},
+{t:'Contoh lengkap',x:'3 pen berharga RM9. Berapakah harga 8 pen?<br>Langkah 1: 9 ÷ 3 = RM3 (harga 1 pen).<br>Langkah 2: 3 × 8 = RM24 (harga 8 pen).',v:()=>barSVG({a:3,b:8,u:3,t:9,v:24,pre:'RM',suf:''},2),ch:['2 kg epal berharga RM10. Harga 3 kg epal ialah ...',['RM15','RM5','RM30'],0,'Cari harga 1 kg dahulu: 10 ÷ 2.','10 ÷ 2 = RM5. Kemudian 5 × 3 = RM15.']},
+{t:'Semak jawapan anda',x:'Bilangan yang lebih banyak memberi nilai yang lebih besar. 8 pen patut lebih mahal daripada 3 pen: RM24 lebih besar daripada RM9, jadi jawapan munasabah. Kaedah yang sama boleh digunakan untuk jarak, jisim dan masa.',ch:['Kapal belayar 12 km dalam 3 jam. Dalam 5 jam, ia belayar ...',['20 km','15 km','36 km'],0,'Cari jarak 1 jam dahulu: 12 ÷ 3.','12 ÷ 3 = 4 km sejam. Kemudian 4 × 5 = 20 km.']}],
+m:[
+{t:'Empat langkah menyelesaikan masalah',x:'Setiap kali menemui soalan cerita, ikut empat langkah ini.',v:()=>'<div class="flow">'+[['1','Baca dan faham','Apa yang diberi? Apa yang ditanya?'],['2','Rancang','Pilih koordinat, nisbah atau kaedah unitari.'],['3','Selesaikan','Kira langkah demi langkah.'],['4','Semak','Adakah jawapan munasabah?']].map(a=>`<div class="it"><div class="e">${a[0]}</div><b>${a[1]}</b><small>${a[2]}</small></div>`).join('')+'</div>',ch:['Apakah langkah pertama menyelesaikan masalah?',['Baca dan faham soalan','Terus tulis jawapan','Tekan butang Semak'],0,'Kita mesti faham soalan dahulu.','Langkah pertama ialah membaca dan memahami soalan.']},
+{t:'Contoh 1: koordinat dan skala',x:'Kapal bermula di (2, 3). Ia belayar 4 unit ke kanan dan 2 unit ke atas. Skala peta ialah 1 : 3.<br>• Koordinat tiba: x = 2 + 4 = 6, y = 3 + 2 = 5, jadi (6, 5).<br>• Jarak ke kanan: 4 × 3 = 12 km.',v:()=>gridMini({route:[[2,3],[6,3],[6,5]],pts:[[2,3,'⚓','mula (2, 3)'],[6,5,'🏝️','(6, 5)']],O:1}),ch:['Ke kanan menambah nilai ... dan ke atas menambah nilai ...',['x; y','y; x','x; x'],0,'Ke kanan berkaitan paksi-x.','Bergerak ke kanan menambah x. Bergerak ke atas menambah y.']},
+{t:'Contoh 2: nisbah',x:'Nisbah syiling emas kepada syiling perak ialah 1 : 4. Ada 3 syiling emas.<br>• Syiling perak = 3 × 4 = 12.<br>• Jumlah semua syiling = 3 + 12 = 15.',v:()=>dotsHTML(4),ch:['Nisbah emas kepada perak 1 : 2. Ada 5 syiling emas. Berapa syiling perak?',['10','7','5'],0,'Darabkan 5 dengan 2.','5 × 2 = 10 syiling perak.']},
+{t:'Contoh 3: kaedah unitari dan tolak',x:'3 kotak pensel berharga RM12. Farid membeli 5 kotak dan membayar RM30.<br>• Harga 1 kotak = 12 ÷ 3 = RM4.<br>• Harga 5 kotak = 4 × 5 = RM20.<br>• Baki = 30 − 20 = RM10.',v:()=>barSVG({a:3,b:5,u:4,t:12,v:20,pre:'RM',suf:''},2),ch:['Harga 5 kotak ialah RM20. Farid membayar RM50. Bakinya ialah ...',['RM30','RM70','RM20'],0,'Tolak harga daripada wang yang dibayar.','50 − 20 = RM30.']},
+{t:'Petua pakar',x:'• Garis bawah nombor penting.<br>• Lukis rajah atau grid.<br>• Tulis unit (RM, km, g) bersama jawapan.<br>• Semak sama ada jawapan munasabah.<br>Kini anda bersedia untuk Misi akhir, Kapten!'}]};
+/*LES-END*/
+function mkLesson(key,id){const box=$('#'+id),steps=LES[key];let i=0,open=!les[key];const ck=[];
+ function draw(){const n=steps.length,st=steps[i],q=st.ch?(st.q=st.q||mc(...st.ch)):null,ok=ck[i];
+  let h=`<div class="lh"><span>📖 Belajar bersama Kapten Camar ${les[key]?'✅':''}</span><span style="margin-left:auto;font-weight:600;font-size:14px">${open?`Langkah ${i+1} / ${n}`:''}</span><button class="ghost" data-a="tg">${open?'Sembunyi':les[key]?'Ulang pelajaran':'Buka pelajaran'}</button></div>`;
+  if(open){h+=`<div class="lb"><div class="cap"><span class="av">${mascotSVG("idle")}</span><div class="bub"><b>${st.t}</b><p style="margin:6px 0 0">${st.x}</p></div></div>${st.v?`<div class="lv">${st.v()}</div>`:''}`;
+   if(q)h+=`<p class="q" style="margin:8px 0 6px">Semak faham: ${q.text}</p><div class="row opts">${q.opts.map((o,k)=>`<button class="ghost${ok===k?' o':''}" data-o="${k}"${ok!=null?' disabled':''}>${o}</button>`).join('')}</div><p class="fb${ok!=null?' ok':''}">${ok!=null?'Betul! '+q.why:''}</p>`;
+   h+=`<div class="row" style="margin-top:10px"><button class="ghost" data-a="bk"${i?'':' disabled'}>Kembali</button><button class="go" data-a="nx"${q&&ok==null?' disabled':''}>${i<n-1?'Seterusnya':'Selesai'}</button></div></div>`}
+  box.innerHTML=h}
+ box.onclick=e=>{const b=e.target.closest('button');if(!b||b.disabled)return;const a=b.dataset.a,st=steps[i];
+  if(a==='tg'){open=!open;draw();return}
+  if(a==='bk'){i=Math.max(0,i-1);sfx('click');draw();return}
+  if(a==='nx'){if(i<steps.length-1){i++;sfx('click')}else{if(!les[key]){les[key]=1;save();award(3,'menamatkan pelajaran');sfx('win');say('Pelajaran selesai! Anda mendapat 3 bintang. Sekarang cuba berlatih!','cheer')}open=false;i=0}draw();return}
+  if(b.dataset.o!==undefined){const q=st.q,k=+b.dataset.o;
+   if(k===q.ans[0]){ck[i]=k;sfx('ok');say('Betul! '+q.why,'happy');draw()}else{sfx('no');say(q.hint,'think');b.classList.add('x');const f=box.querySelector('.fb');f.className='fb no';f.textContent='Belum tepat. '+q.hint}}};
+ draw()}
+mkLesson('k','L1');mkLesson('n','L2');mkLesson('d','L3');mkLesson('m','L4');
+
+/* Papan hias latar */
+/*DECO-START*/
+function drawDeco(){const h=deco.map((d,i)=>{const it=ITEMS.find(x=>x.id===d.i);return it?`<span class="sk" data-i="${i}" style="left:${d.x.toFixed(1)}%;top:${d.y.toFixed(1)}%;--k:${[0,.045,.07,.1][d.z]||.07}">${it.e}</span>`:''}).join('');
+ $('#board').innerHTML=h;$('#dmap').innerHTML=h}
+function tray(){const o=ITEMS.filter(i=>i.t==='st'&&owned.includes(i.id));
+ if(selS&&!owned.includes(selS))selS=null;if(!selS&&o.length)selS=o[0].id;
+ $('#tray').innerHTML=o.length?o.map(i=>`<button class="ghost" style="font-size:26px;padding:2px 10px" aria-label="${i.n}" aria-pressed="${i.id===selS}" data-id="${i.id}">${i.e}</button>`).join(''):'<small style="color:var(--mut)">Anda belum mempunyai stiker. Beli stiker koleksi di atas dahulu.</small>'}
+/*DECO-END*/
+let dg=null;const bd=$('#board');
+$('#tray').onclick=e=>{const b=e.target.closest('button');if(!b)return;selS=b.dataset.id;sfx('click');tray();$('#dmsg').textContent='Ketik pada papan untuk menampal stiker itu.'};
+$('#dm').onclick=e=>{const b=e.target.closest('button');if(!b)return;dmode=b.dataset.d;[...$('#dm').children].forEach(x=>x.setAttribute('aria-pressed',x===b));bd.classList.toggle('rm',dmode==='b');$('#dmsg').textContent=dmode==='b'?'Mod buang: ketik pada stiker untuk membuangnya.':'Mod tampal: ketik pada papan untuk menampal stiker.'};
+$('#dz').onclick=e=>{const b=e.target.closest('button');if(!b)return;dsz=+b.dataset.z;[...$('#dz').children].forEach(x=>x.setAttribute('aria-pressed',x===b))};
+$('#dclr').onclick=()=>{if(!deco.length)return;deco=[];save();drawDeco();sfx('click');$('#dmsg').textContent='Semua stiker dipadam.'};
+bd.onpointerdown=e=>{const s=e.target.closest('.sk');if(!s)return;const i=+s.dataset.i;
+ if(dmode==='b'){deco.splice(i,1);save();drawDeco();sfx('click');e.preventDefault();return}
+ dg={i,s};s.setPointerCapture(e.pointerId);e.preventDefault()};
+bd.onpointermove=e=>{if(!dg)return;const r=bd.getBoundingClientRect(),d=deco[dg.i];
+ d.x=Math.max(0,Math.min(100,(e.clientX-r.left)/r.width*100));d.y=Math.max(0,Math.min(100,(e.clientY-r.top)/r.height*100));dg.s.style.left=d.x+'%';dg.s.style.top=d.y+'%'};
+bd.onpointerup=bd.onpointercancel=()=>{if(dg){dg=null;save();drawDeco()}};
+bd.onclick=e=>{if(e.target.closest('.sk')||dmode!=='p')return;
+ if(!selS){$('#dmsg').textContent='Pilih stiker daripada koleksi anda dahulu.';return}
+ if(deco.length>=40){$('#dmsg').textContent='Papan penuh (40 stiker). Buang beberapa stiker dahulu.';return}
+ const r=bd.getBoundingClientRect();deco.push({i:selS,x:(e.clientX-r.left)/r.width*100,y:(e.clientY-r.top)/r.height*100,z:dsz});save();drawDeco();sfx('place');
+ $('#dmsg').textContent='Stiker ditampal! Seret untuk menggerakkannya.'};
+new ResizeObserver(es=>es.forEach(x=>x.target.style.setProperty('--bw',x.target.clientWidth+'px'))).observe(bd);
+new ResizeObserver(es=>es.forEach(x=>x.target.style.setProperty('--bw',x.target.clientWidth+'px'))).observe(document.querySelector('.map'));
+
+/*BAT-START*/
+const NS='http://www.w3.org/2000/svg';
+function el(p,t,a){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p.appendChild(e);return e}
+function anim(e,kf,o,done){if(!e.animate){e.remove();done&&done();return}const a=e.animate(kf,Object.assign({fill:'forwards'},o));a.onfinish=()=>{e.remove();done&&done()}}
+const ctr=e=>{e.style.cssText='transform-box:fill-box;transform-origin:center';return e};
+function arc(g,x0,y0,x1,y1,dur,done,r,hh){const c=el(g,'circle',{r:r||6,cx:0,cy:0,fill:'#2a2a2a',stroke:'#fff','stroke-width':1.5}),kf=[];
+ for(let i=0;i<=12;i++){const t=i/12;kf.push({transform:`translate(${x0+(x1-x0)*t}px,${y0+(y1-y0)*t-Math.sin(Math.PI*t)*(hh||60)}px) scale(${1+Math.sin(Math.PI*t)*.9})`,offset:t})}
+ anim(c,kf,{duration:dur,easing:'ease-in'},done)}
+function burst(g,x,y,k){k=k||1;['#ffd23f','#ff7b1c','#e4392b'].forEach((c,i)=>{const r=ctr(el(g,'circle',{cx:x,cy:y,r:4*k,fill:c,opacity:.9}));anim(r,[{transform:'scale(.3)',opacity:1},{transform:`scale(${(5-i)*k})`,opacity:0}],{duration:450+i*120,easing:'ease-out'})});
+ for(let i=0;i<9;i++){const a=i/9*2*Math.PI,d=(24+Math.random()*16)*k,p=el(g,'circle',{cx:x,cy:y,r:2.6*k,fill:i%2?'#ffd23f':'#ff7b1c'});anim(p,[{transform:'translate(0,0)',opacity:1},{transform:`translate(${Math.cos(a)*d}px,${Math.sin(a)*d}px)`,opacity:0}],{duration:600,easing:'ease-out'})}}
+function splash(g,x,y,k){k=k||1;[0,1,2].forEach(i=>{const r=ctr(el(g,'circle',{cx:x,cy:y,r:6*k,fill:'none',stroke:'#fff','stroke-width':3}));anim(r,[{transform:'scale(.4)',opacity:0},{transform:'scale(.7)',opacity:.9,offset:.2},{transform:'scale(3.2)',opacity:0}],{duration:800,delay:i*160,easing:'ease-out'})});
+ for(let i=0;i<6;i++){const d=el(g,'circle',{cx:x,cy:y,r:2.4*k,fill:'#bfe7ff'}),a=(i/6-.5)*2.2;anim(d,[{transform:'translate(0,0)',opacity:1},{transform:`translate(${Math.sin(a)*22*k}px,${-26*k}px)`,opacity:.9,offset:.5},{transform:`translate(${Math.sin(a)*30*k}px,0)`,opacity:0}],{duration:700,easing:'ease-out'})}}
+function ftext(g,x,y,t,c){const e=el(g,'text',{x,y,'text-anchor':'middle','font-size':16,'font-weight':800,fill:c||'#fff',stroke:'#14284b','stroke-width':3,'paint-order':'stroke'});e.textContent=t;anim(e,[{transform:'translateY(0)',opacity:1},{transform:'translateY(-34px)',opacity:0}],{duration:1100,easing:'ease-out'})}
+function shake(e,c){e.classList.remove(c);void e.getBoundingClientRect();e.classList.add(c);setTimeout(()=>e.classList.remove(c),600)}
+function vib(p){try{navigator.vibrate&&navigator.vibrate(p)}catch(e){}}
+function revealSunk(x,y){const k=x+','+y,s=fleet.find(q=>q.some(p=>p+''===k));if(!s)return;
+ pts.insertAdjacentHTML('afterbegin',`<polyline points="${s.map(([a,b])=>px(a)+','+py(b)).join(' ')}" fill="none" stroke="#3b2a1a" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>`);
+ s.forEach(([a,b])=>put(a,b,'🔥',0))}
+function fxShot(x,y,hit,sunk){const g=$('#fx'),X=px(x),Y=py(y);
+ arc(g,60,430,X,Y,550,()=>{put(x,y,hit?(sunk?'🔥':'💥'):'💧',0);
+  if(hit){burst(g,X,Y,sunk?1.6:1);shake(svg,'shake');vib(sunk?[60,40,120]:[60])}else splash(g,X,Y);
+  ftext(g,X,Y-14,hit?(sunk?'TENGGELAM!':'KENA!'):'TERSASAR',hit?'#ffd23f':'#bfe7ff');
+  if(streak>=2&&hit)ftext(g,X,Y-34,'KOMBO ×'+streak,'#ff7b1c');
+  if(sunk)revealSunk(x,y);hud()})}
+function enemyBall(k){const[x,y]=k.split(',').map(Number),g=$('#mfx');if(g)arc(g,mo+10*ms+30,-14,mo+x*ms,mo+(10-y)*ms,450,null,4,34)}
+function miniFx(x,y,hit){const g=$('#mfx'),X=mo+x*ms,Y=mo+(10-y)*ms;if(!g)return;if(hit){burst(g,X,Y,.5);shake($('#m'),'hurt');vib([80])}else splash(g,X,Y,.5)}
+function hud(){const e=$('#hud');if(!e)return;e.hidden=phase!=='play';if(phase!=='play')return;
+ const bars=(f,sh)=>f.map(s=>`<span class="sb${s.every(p=>sh.has(p+''))?' s':''}">${s.map(p=>`<i${sh.has(p+'')?' class="h"':''}></i>`).join('')}</span>`).join(''),n=shots.size,acc=n?Math.round(hits*100/n):0;
+ e.innerHTML=`<div class="turn ${busy?'en':'me'}">${over?'🏁 TAMAT':busy?'⚠️ MUSUH MENEMBAK!':'🎯 GILIRAN ANDA'}</div><div class="hr2"><b>👹 Armada musuh</b> ${bars(fleet,shots)}</div><div class="hr2"><b>⚓ Armada anda</b> ${bars(mine,cshots)}</div><div class="hr2">🎯 ${n} tembakan · ${acc}% tepat · 🔥 Kombo ${streak} · 📡 Radar ${radars}</div>`}
+function showEnd(win,g,tb){const n=shots.size,acc=n?Math.round(hits*100/n):0;$('#ovt').className='ovt '+(win?'w':'l');$('#ovt').textContent=win?'MENANG! 🏆':'KALAH 💥';
+ $('#ovs').innerHTML=`🎯 ${n} tembakan · ${acc}% tepat<br>🔥 Kombo tertinggi: ${maxS}<br>`+(win?`⭐ +${g} bintang${tb?` (termasuk ${tb} bonus masa)`:''}`:(tb?`⭐ +${tb} bintang usaha`:'Cuba lagi, anda pasti boleh!'));
+ $('#ovn').hidden=!win;$('#conf').innerHTML='';
+ if(win)for(let i=0;i<46;i++){const c=document.createElement('i');c.style.cssText=`left:${Math.random()*100}vw;background:hsl(${R(0,360)} 90% 55%);animation-delay:${Math.random()*.8}s;animation-duration:${2+Math.random()*1.5}s`;$('#conf').appendChild(c)}
+ $('#ovl').hidden=false}
+/*BAT-END*/
+$('#ova').onclick=()=>{$('#ovl').hidden=true;newFind()};$('#ovc').onclick=()=>{$('#ovl').hidden=true};$('#ovn').onclick=()=>{$('#ovl').hidden=true;go('nisbah')};
+$('#rv').onkeydown=e=>{if(e.key==='Enter')$('#radar').click()};
+$('#radar').onclick=()=>{if(phase!=='play'||over||busy)return;
+ if(radars<1){info.textContent='Radar anda sudah habis.';return}
+ const ax=$('#rax').value,v=$('#rv').value.trim(),n=+v;
+ if(v===''||!Number.isInteger(n)||n<1||n>9){info.textContent='Taip nombor bulat 1 hingga 9 untuk radar.';return}
+ radars--;let c=0;used.forEach(k=>{const[a,b]=k.split(',').map(Number);if((ax==='y'?b:a)===n&&!shots.has(k))c++});sfx('radar');
+ const g=$('#fx'),r=ax==='y'?{x:X0,y:py(n)-S/2,width:N*S,height:S}:{x:px(n)-S/2,y:Y0-N*S,width:S,height:N*S};
+ anim(el(g,'rect',Object.assign({fill:'rgba(60,255,150,.4)'},r)),[{opacity:0},{opacity:1,offset:.3},{opacity:0}],{duration:1700});
+ ftext(g,ax==='y'?X0+N*S/2:px(n),ax==='y'?py(n)+5:Y0-N*S/2,c+' titik','#7dffb0');
+ info.innerHTML=`📡 Radar: ${ax==='y'?`baris y = ${n} (garis mendatar)`:`lajur x = ${n} (garis menegak)`} masih mempunyai <b>${c}</b> titik kapal musuh yang belum ditembak. Kini taip koordinat tepat untuk menembak!`;
+ say(c?`Radar menemui ${c} titik kapal! Sekarang cari x dan y yang betul.`:'Radar tidak menemui apa-apa di sini. Cuba garis lain!',c?'happy':'think');hud()};
+/* Kompas interaktif */
+const nd=$('#nd'),cx=$('#cx'),CC=[95,505],SP=[0,[230,225],[410,385],[600,225],[770,385],[890,225]],
+DIR=['Utara','Timur Laut','Timur','Tenggara','Selatan','Barat Daya','Barat','Barat Laut'],
+MN=['','Misi 1 (7.1 Koordinat)','Misi 2 (7.2 Nisbah)','Misi 3 (7.3 Kadaran)','Misi 4 (7.4 Penyelesaian masalah)','harta karun'];
+let ang=0,drag=0;
+const bear=i=>(Math.atan2(SP[i][0]-CC[0],-(SP[i][1]-CC[1]))*180/Math.PI+360)%360,dn8=a=>DIR[Math.round(a/45)%8];
+function setA(a,t){ang=(a%360+360)%360;nd.style.transition=t?'':'none';nd.style.transform=`rotate(${ang}deg)`;cx.setAttribute('aria-valuenow',Math.round(ang));
+ let m=`Jarum menghala ke ${dn8(ang)} (${Math.round(ang)}°).`;
+ for(let i=1;i<=5;i++){if(Math.abs(((bear(i)-ang+540)%360)-180)<=12){m+=` Itulah arah ${MN[i]}.`;break}}
+ $('#cdir').textContent=m}
+function pointNext(){let i=1;while(i<5&&$('#s'+i).classList.contains('dn'))i++;setA(bear(i),1);
+ $('#cdir').textContent=`Seterusnya: ${MN[i]}, ke arah ${dn8(bear(i))} dari kompas. Seret jarum untuk meneroka arah lain.`}
+const ptr=e=>{const r=cx.getBoundingClientRect();return(Math.atan2(e.clientX-(r.left+r.width/2),-(e.clientY-(r.top+r.height/2)))*180/Math.PI+360)%360};
+cx.onpointerdown=e=>{drag=1;cx.setPointerCapture(e.pointerId);setA(ptr(e),0)};
+cx.onpointermove=e=>{if(drag)setA(ptr(e),0)};
+cx.onpointerup=cx.onpointercancel=()=>{drag=0};
+cx.onkeydown=e=>{const k=e.key;if(k==='ArrowRight'||k==='ArrowUp'){setA(ang+15,1);e.preventDefault()}if(k==='ArrowLeft'||k==='ArrowDown'){setA(ang-15,1);e.preventDefault()}};
+$('#cgo').onclick=pointNext;
+upd();paint();paintAudio();
+</script>
+</body>
+</html>
